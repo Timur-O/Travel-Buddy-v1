@@ -17,6 +17,7 @@ import RegionList from "@/components/RegionList.vue";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
 
+// TODO - Remove Test Code
 const regions = [
     new Region("Region 1", [
         new Country("Canada", "🇨🇦", 100, false),

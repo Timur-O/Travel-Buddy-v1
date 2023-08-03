@@ -23,7 +23,7 @@ function signOut() {
 }
 </script>
 
-<style>
+<style scoped>
 #app-icon {
   border-radius: 5px;
 }

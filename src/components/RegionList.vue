@@ -55,7 +55,7 @@ function countryVisitedChanged(country: Country) {
 
 </script>
 
-<style>
+<style scoped>
 .flag {
   display: inline-block;
   font-size: var(--size) !important;
@@ -73,7 +73,7 @@ function countryVisitedChanged(country: Country) {
 ion-checkbox {
   --size: 32px;
   --checkbox-background-checked: var(--ion-item-background);
-  --checkmark-color: var(--ion-color-primary);
+  --checkmark-color: var(--ion-color-tertiary);
 }
 
 ion-checkbox::part(container) {
