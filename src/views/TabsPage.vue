@@ -19,7 +19,25 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
 import { listOutline, mapOutline, statsChartOutline } from 'ionicons/icons';
+import { getCurrentUser } from "vuefire";
+import { getCountriesInfo, getUserInfo } from "@/firebase";
+
+export default {
+  name: 'TabsPage',
+  components: {IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet},
+  async setup() {
+    const currentUser = await getCurrentUser();
+    const userInfo = await getUserInfo(currentUser?.uid!);
+    const countriesInfo = await getCountriesInfo();
+    
+    return {
+      listOutline,
+      mapOutline,
+      statsChartOutline
+    }
+  }
+}
 </script>
