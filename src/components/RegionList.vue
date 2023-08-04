@@ -10,11 +10,11 @@
         </ion-card-header>
       </ion-item>
 
-      <div slot="content" mode="ios">
+      <div slot="content">
         <ion-list lines="inset">
           <ion-item v-for="country in region.countries">
             <ion-label>
-              <ion-checkbox justify="space-between" :checked="country.visited"
+              <ion-checkbox justify="space-between" :checked="country.visited.valueOf()"
                             @ionChange="() => countryVisitedChanged(country)">
                 <p class="flag">{{ country.flag }}</p>
                 <div class="name-and-area-container">
@@ -46,7 +46,10 @@ import Region from "@/models/Region";
 import Country from "@/models/Country";
 
 defineProps({
-  region: Region
+  region: {
+    type: Region,
+    required: true
+  }
 });
 
 function countryVisitedChanged(country: Country) {

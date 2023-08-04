@@ -1,1 +1,7 @@
 node_modules
+
+# Ignore Mac Files
+.DS_Store
+
+# Ignore Secrets
+src/firebase.ts

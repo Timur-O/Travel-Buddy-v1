@@ -7,10 +7,28 @@
 
 <script setup lang="ts">
 defineProps({
-  title: String,
-  percentage: Number,
-  direction: String,
-  color: String
+  title: {
+    type: String,
+    required: true
+  },
+  percentage: {
+    type: Number,
+    required: true
+  },
+  direction: {
+    type: String,
+    required: true,
+    validator(value: string) {
+      return ['row', 'row-reverse'].includes(value)
+    }
+  },
+  color: {
+    type: String,
+    required: true,
+    validator(value: string) {
+      return ['primary', 'secondary'].includes(value)
+    }
+  }
 });
 </script>
 

@@ -20,7 +20,10 @@ import { IonContent, IonItem, IonLabel, IonList } from '@ionic/vue';
 import Region from "@/models/Region";
 
 defineProps({
-  regions: Array<Region>
+  regions: {
+    type: Array<Region>,
+    required: true
+  }
 });
 </script>
 

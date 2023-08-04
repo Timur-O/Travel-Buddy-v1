@@ -3,15 +3,15 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="stats" href="/stats">
+        <ion-tab-button tab="stats" href="/app/stats">
           <ion-icon aria-label="Stats Page" :icon="statsChartOutline" />
         </ion-tab-button>
 
-        <ion-tab-button tab="map" href="/map">
+        <ion-tab-button tab="map" href="/app/map">
           <ion-icon aria-label="Map Page" :icon="mapOutline" />
         </ion-tab-button>
 
-        <ion-tab-button tab="list" href="/list">
+        <ion-tab-button tab="list" href="/app/list">
           <ion-icon aria-label="List Page" :icon="listOutline" />
         </ion-tab-button>
       </ion-tab-bar>
@@ -20,6 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import {ellipse, listOutline, mapOutline, square, statsChartOutline, triangle} from 'ionicons/icons';
+import { IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
+import { listOutline, mapOutline, statsChartOutline } from 'ionicons/icons';
 </script>

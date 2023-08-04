@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.timuroberhuber.travelbuddy',
   appName: 'travel-buddy',
   webDir: 'dist',
   server: {

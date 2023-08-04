@@ -6,8 +6,8 @@
           <ion-thumbnail>
             <img id="app-icon" alt="App Icon" src="/favicon.png" />
           </ion-thumbnail>
-          <p>Travel Buddy</p>
-          <ion-icon color="danger" aria-label="Sign Out Button" :icon="exitOutline" @click="signOut"></ion-icon>
+          <p id="header-title">Travel Buddy</p>
+          <ion-icon color="danger" aria-label="Sign Out Button" :icon="exitOutline" @click="logout"></ion-icon>
         </div>
       </ion-title>
     </ion-toolbar>
@@ -15,11 +15,20 @@
 </template>
 
 <script setup lang="ts">
-import { IonHeader, IonTitle, IonToolbar, IonButton, IonThumbnail, IonIcon } from "@ionic/vue";
-import {exitOutline} from "ionicons/icons";
+import { IonHeader, IonTitle, IonToolbar, IonThumbnail, IonIcon } from "@ionic/vue";
+import { exitOutline } from "ionicons/icons";
+import { signOut } from 'firebase/auth'
+import router from "@/router";
+import { useFirebaseAuth } from "vuefire";
 
-function signOut() {
-  console.log("Sign Out");
+const auth = useFirebaseAuth();
+
+function logout() {
+  signOut(auth!).then(() => {
+    router.push('/login');
+  }).catch((reason) => {
+    console.error('Failed to logout:', reason);
+  })
 }
 </script>
 
