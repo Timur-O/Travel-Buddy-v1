@@ -15,7 +15,7 @@
           <ion-item v-for="country in region.countries">
             <ion-label>
               <ion-checkbox justify="space-between" :checked="country.visited.valueOf()"
-                            @ionChange="() => countryVisitedChanged(country)">
+                            @ionChange="() => countryVisitedChanged(country)" mode="ios">
                 <p class="flag">{{ country.flag }}</p>
                 <div class="name-and-area-container">
                   {{ country.name }}

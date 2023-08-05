@@ -33,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'list',
         component: () => import('@/views/ListPage.vue')
+      },
+      {
+        path: 'settings',
+        component: () => import('@/views/SettingsPage.vue')
       }
     ]
   }

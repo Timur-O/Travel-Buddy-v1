@@ -7,7 +7,7 @@
             <img id="app-icon" alt="App Icon" src="/favicon.png" />
           </ion-thumbnail>
           <p id="header-title">Travel Buddy</p>
-          <ion-icon color="danger" aria-label="Sign Out Button" :icon="exitOutline" @click="store.dispatch('logout')"></ion-icon>
+          <ion-icon color="secondary" aria-label="Settings Button" :icon="settingsOutline" @click="router.push('/app/settings')"></ion-icon>
         </div>
       </ion-title>
     </ion-toolbar>
@@ -16,11 +16,8 @@
 
 <script setup lang="ts">
 import { IonHeader, IonTitle, IonToolbar, IonThumbnail, IonIcon } from "@ionic/vue";
-import { exitOutline } from "ionicons/icons";
-import { useStore } from "vuex";
-import { key } from "@/store";
-
-const store = useStore(key);
+import { settingsOutline} from "ionicons/icons";
+import router from "@/router";
 </script>
 
 <style scoped>
