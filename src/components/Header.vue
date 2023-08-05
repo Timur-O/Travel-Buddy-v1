@@ -17,7 +17,10 @@
 <script setup lang="ts">
 import { IonHeader, IonTitle, IonToolbar, IonThumbnail, IonIcon } from "@ionic/vue";
 import { exitOutline } from "ionicons/icons";
-import store from "@/store";
+import { useStore } from "vuex";
+import { key } from "@/store";
+
+const store = useStore(key);
 </script>
 
 <style scoped>

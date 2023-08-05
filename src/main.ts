@@ -4,10 +4,10 @@ import router from './router';
 
 import { IonicVue } from '@ionic/vue';
 
-import store from "@/store";
+import { store, key } from "@/store";
 
 import { VueFire, VueFireAuth } from 'vuefire'
-import { firebaseApp } from './firebase'
+import { firebaseApp } from './firebase/firebase'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -31,7 +31,7 @@ import './theme/variables.css';
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
-  .use(store)
+  .use(store, key)
   .use(VueFire, {
     firebaseApp,
     modules: [

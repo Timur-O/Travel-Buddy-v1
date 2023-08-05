@@ -22,15 +22,16 @@
 <script lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
 import { listOutline, mapOutline, statsChartOutline } from 'ionicons/icons';
-import {useStore} from "vuex";
-import {computed} from "vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { key } from "@/store";
 
 export default {
   name: 'TabsPage',
   components: {IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet},
   async setup() {
 
-    const store = useStore();
+    const store = useStore(key);
     const userInfo = computed(() => store.getters.userInfo).value;
     const countriesInfo = computed(() => store.getters.countriesInfo).value;
 

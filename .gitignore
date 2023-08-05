@@ -4,4 +4,4 @@ node_modules
 .DS_Store
 
 # Ignore Secrets
-src/firebase.ts
+src/firebase/secret.json

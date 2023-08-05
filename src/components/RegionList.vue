@@ -1,6 +1,6 @@
 <template>
   <ion-card>
-    <ion-accordion :expanded="true">
+    <ion-accordion>
       <ion-item slot="header">
         <ion-card-header>
           <ion-card-title>{{ region.name }}</ion-card-title>
@@ -19,7 +19,7 @@
                 <p class="flag">{{ country.flag }}</p>
                 <div class="name-and-area-container">
                   {{ country.name }}
-                  <p class="sub-label">{{ country.area }} km<sup>2</sup></p>
+                  <p class="sub-label">{{ country.area.toLocaleString() }} km<sup>2</sup></p>
                 </div>
               </ion-checkbox>
             </ion-label>
