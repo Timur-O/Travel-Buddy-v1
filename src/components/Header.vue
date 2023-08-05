@@ -40,4 +40,9 @@ import router from "@/router";
   justify-content: space-between;
   align-items: center;
 }
+
+#header-title {
+  font-family: 'Vanity', 'Engebrechtre', sans-serif;
+  font-weight: bold;
+}
 </style>

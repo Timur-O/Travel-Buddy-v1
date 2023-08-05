@@ -6,9 +6,16 @@
         <ion-label class="header">By Area:</ion-label>
       </ion-item>
       <ion-item v-for="region in regions">
-        <ion-label>{{ region.name }}</ion-label>
-        <ion-label>{{ region.percentageVisitedByNumber.toFixed(2) }}%</ion-label>
-        <ion-label>{{ region.percentageVisitedByArea.toFixed(2) }}%</ion-label>
+        <ion-label>
+          {{ region.name }}
+        </ion-label>
+        <ion-label>
+          {{ region.visitedNumber }}/{{ region.totalNumber }},
+          {{ Math.round(region.percentageVisitedByNumber) }}%
+        </ion-label>
+        <ion-label>
+          {{ region.percentageVisitedByArea.toFixed(2) }}%
+        </ion-label>
       </ion-item>
     </ion-list>
 </template>

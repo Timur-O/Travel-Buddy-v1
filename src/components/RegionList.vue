@@ -5,7 +5,8 @@
         <ion-card-header>
           <ion-card-title>{{ region.name }}</ion-card-title>
           <ion-card-subtitle>
-            {{ region.visitedNumber }} / {{ region.totalNumber }} Countries Visited ({{ region.percentageVisitedByNumber.toFixed(2) }}%)
+            {{ region.visitedNumber }} / {{ region.totalNumber }} Countries Visited
+            ({{ region.percentageVisitedByNumber.toFixed(2) }}%)
           </ion-card-subtitle>
         </ion-card-header>
       </ion-item>
@@ -19,9 +20,14 @@
                             @ionChange="() => countryVisitedChanged(country)"
                             mode="ios">
                 <p class="flag">{{ country.flag ? country.flag : '🚫'}}</p>
-                <div class="name-and-area-container item-text-wrap">
-                  {{ country.name }}
-                  <p class="ion-color-medium">{{ country.area.toLocaleString() }} km<sup>2</sup></p>
+                <div class="name-and-area-container">
+                  {{ country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '') }}
+                  <p class="ion-color-medium">
+                    {{ country.area.toLocaleString() }} km<sup>2</sup>
+                    <ion-text color="secondary" v-if="country.type == 'nonUn'">
+                      , Non-UN Member
+                    </ion-text>
+                  </p>
                 </div>
               </ion-checkbox>
             </ion-label>
@@ -91,12 +97,14 @@ async function countryVisitedChanged(country: Country) {
 
 .name-and-area-container {
   display: inline-block;
+  text-overflow: unset !important;
 }
 
 ion-checkbox {
   --size: 32px;
-  --checkbox-background-checked: var(--ion-color-primary);
+  --checkbox-background-checked: var(--ion-color-primary-shade);
   --checkmark-color: var(--ion-color-light);
+  --checkmark-width: 2px;
 }
 
 ion-checkbox::part(container) {

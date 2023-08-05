@@ -12,7 +12,8 @@
               <ion-card-header>
                 <ion-card-title>Non-Sovereign States</ion-card-title>
                 <ion-card-subtitle>
-                  {{ nonSovereignWorld.visitedNumber }} / {{ nonSovereignWorld.totalNumber }} Countries Visited ({{ nonSovereignWorld.percentageVisitedByNumber.toFixed(2) }}%)
+                  {{ nonSovereignWorld.visitedNumber }} / {{ nonSovereignWorld.totalNumber }}
+                  Countries Visited ({{ nonSovereignWorld.percentageVisitedByNumber.toFixed(2) }}%)
                 </ion-card-subtitle>
               </ion-card-header>
             </ion-item>
@@ -24,7 +25,8 @@
                   <ion-item slot="header" color="warning">
                     <ion-card-header>
                       <ion-card-subtitle class="ion-text-justify">
-                        Non-sovereign states are currently excluded from statistics. If you prefer to include them, you can enable this in the settings.
+                        Non-sovereign states are currently excluded from statistics.
+                        If you prefer to include them, you can enable this in the settings.
                       </ion-card-subtitle>
                     </ion-card-header>
                   </ion-item>
@@ -65,6 +67,10 @@ const store = useStore(key);
 const userInfo = computed(() => store.getters.userInfo).value;
 const sovereignWorld: World = computed(() => store.getters.sovereignWorld).value;
 const nonSovereignWorld: World = computed(() => store.getters.nonSovereignWorld).value;
-const sovereignRegions: Region[] = sovereignWorld.regions.sort((a, b) => b.visitedNumber - a.visitedNumber);
-const nonSovereignRegions: Region[] = nonSovereignWorld.regions.sort((a, b) => b.visitedNumber - a.visitedNumber);
+const sovereignRegions: Region[] = sovereignWorld.regions.sort((a, b) => {
+  return b.visitedNumber - a.visitedNumber
+});
+const nonSovereignRegions: Region[] = nonSovereignWorld.regions.sort((a, b) => {
+  return b.visitedNumber - a.visitedNumber
+});
 </script>

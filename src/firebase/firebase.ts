@@ -27,7 +27,9 @@ export async function getUserInfo(userId: string): Promise<UserInfo> {
 
 export async function getCountriesInfo(): Promise<CountriesInfo> {
     if (countriesInfo == null) {
-        const {promise} = useDocument(doc(staticCollection, 'countries'));
+        const {promise} = useDocument(
+            doc(staticCollection, 'countries')
+        );
         countriesInfo = await promise.value;
     }
     const parsedCountriesInfo = new CountriesInfo();

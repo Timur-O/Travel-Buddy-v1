@@ -43,4 +43,16 @@ import {IonApp, IonContent, IonRouterOutlet, IonThumbnail, IonSpinner} from '@io
 .app-icon > img {
   border-radius: 5px;
 }
+
+@font-face {
+  font-family: "Vanity";
+  src: local("Vanity"),
+  url(./fonts/vanity/Vanity-LightWide.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Engebrechtre";
+  src: local("Engebrechtre"),
+  url(./fonts/engebrechtre/Engebrechtre-Ex.otf) format("opentype");
+}
 </style>

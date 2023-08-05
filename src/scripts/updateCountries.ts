@@ -24,7 +24,9 @@ export default async function updateCountries() {
                         unCountries.push(country);
                     } else {
                         const formattedName: string = country.name.common.replaceAll(" ", "_");
-                        if (wikipediaSovereignCountries.indexOf('<span id="' + formattedName + '"></span>') != -1) {
+                        if (wikipediaSovereignCountries.indexOf(
+                            '<span id="' + formattedName + '"></span>'
+                        ) != -1) {
                             nonUnSovereignCountries.push(country);
                         } else {
                             nonUnNonSovereignCountries.push(country);
@@ -60,9 +62,9 @@ export default async function updateCountries() {
                 }, {});
 
                 // Print the data
-                console.log("UN Member Countries:", JSON.stringify(unCountries));
-                console.log("Non-UN Sovereign Countries:", JSON.stringify(nonUnSovereignCountries));
-                console.log("Non-UN Non-Sovereign Countries:", JSON.stringify(nonUnNonSovereignCountries));
+                console.log("UN Members:", JSON.stringify(unCountries));
+                console.log("Non-UN Sovereigns:", JSON.stringify(nonUnSovereignCountries));
+                console.log("Non-UN Non-Sovereigns:", JSON.stringify(nonUnNonSovereignCountries));
             });
         }).catch(error => {
             console.error("Error updating countries:", error)

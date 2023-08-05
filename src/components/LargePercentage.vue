@@ -1,6 +1,6 @@
 <template>
   <div class="large-percentage-container">
-    <h1 class="large-percentage" :class="color">{{ percentage.toFixed(0) }}%</h1>
+    <h1 class="large-percentage" :class="color">{{ Math.round(percentage) }}%</h1>
     <h5 class="large-percentage-desc">{{ title }}</h5>
   </div>
 </template>
@@ -26,7 +26,7 @@ defineProps({
     type: String,
     required: true,
     validator(value: string) {
-      return ['ion-color-primary', 'ion-color-secondary'].includes(value)
+      return ['primary', 'secondary'].includes(value)
     }
   }
 });
@@ -43,5 +43,13 @@ defineProps({
 
 .large-percentage {
   font-size: 5em;
+}
+
+.primary {
+  color: var(--ion-color-primary);
+}
+
+.secondary {
+  color: var(--ion-color-secondary);
 }
 </style>

@@ -4,11 +4,19 @@
 
     <ion-content :fullscreen="true">
       <div class="container">
-        <ion-toggle class="option" :checked="userInfo.includeNonSovereign" @ionChange="includeNonSovereignChanged" mode="ios">
+        <ion-toggle class="option"
+                    :checked="userInfo.includeNonSovereign"
+                    @ionChange="includeNonSovereignChanged"
+                    mode="ios">
           Include Non-Sovereign in Statistics
         </ion-toggle>
-        <ion-button color="danger" aria-label="Sign Out Button" @click="store.dispatch('logout')">
-          <ion-icon color="primary" :icon="exitOutline" class="icon"></ion-icon> Sign Out
+        <ion-button color="danger"
+                    aria-label="Sign Out Button"
+                    @click="store.dispatch('logout')">
+          <ion-icon color="primary"
+                    :icon="exitOutline"
+                    class="icon"></ion-icon>
+          Sign Out
         </ion-button>
       </div>
     </ion-content>

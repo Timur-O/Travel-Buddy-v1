@@ -1,15 +1,20 @@
 <template>
   <ion-page>
-    <ion-content :color="'primary'">
+    <ion-content id="login-container">
       <div id="container-top">
         <ion-thumbnail class="app-icon">
           <img src="/favicon.png"  alt="App Icon"/>
         </ion-thumbnail>
-        <h1>Travel Buddy</h1>
+        <h1 class="title">Travel Buddy</h1>
       </div>
       <div id="container-bottom">
-        <ion-img src="/google_login.png" @click="store.dispatch('login', { error: loginErr })"></ion-img>
-        <ion-text class="error" color="danger" v-if="loginErr">Something went wrong, please try again!</ion-text>
+        <ion-img src="/google_login.png"
+                 @click="store.dispatch('login', { error: loginErr })"></ion-img>
+        <ion-text class="error"
+                  color="danger"
+                  v-if="loginErr">
+          Something went wrong, please try again!
+        </ion-text>
       </div>
     </ion-content>
   </ion-page>
@@ -24,6 +29,16 @@ const loginErr = ref(false);
 </script>
 
 <style scoped>
+#login-container {
+  --background: url("/login-background.jpg") no-repeat center/220%;
+}
+
+.title {
+  font-family: 'Vanity', 'Engebrechtre', sans-serif;
+  text-shadow: 1px 1px black;
+  font-size: 3em;
+}
+
 #container-top, #container-bottom {
   text-align: center;
   position: absolute;
