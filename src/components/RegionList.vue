@@ -14,12 +14,14 @@
         <ion-list lines="inset">
           <ion-item v-for="country in region.countries">
             <ion-label>
-              <ion-checkbox justify="space-between" :checked="country.visited.valueOf()"
-                            @ionChange="() => countryVisitedChanged(country)" mode="ios">
-                <p class="flag">{{ country.flag }}</p>
-                <div class="name-and-area-container">
+              <ion-checkbox justify="space-between"
+                            :checked="country.visited"
+                            @ionChange="() => countryVisitedChanged(country)"
+                            mode="ios">
+                <p class="flag">{{ country.flag ? country.flag : '🚫'}}</p>
+                <div class="name-and-area-container item-text-wrap">
                   {{ country.name }}
-                  <p class="sub-label">{{ country.area.toLocaleString() }} km<sup>2</sup></p>
+                  <p class="ion-color-medium">{{ country.area.toLocaleString() }} km<sup>2</sup></p>
                 </div>
               </ion-checkbox>
             </ion-label>
@@ -44,6 +46,12 @@ import {
 } from '@ionic/vue';
 import Region from "@/models/Region";
 import Country from "@/models/Country";
+import {getCurrentUser} from "vuefire";
+import {doc, updateDoc} from "firebase/firestore";
+import {usersCollection} from "@/firebase/firebase";
+import {computed} from "vue";
+import {useStore} from "vuex";
+import {key} from "@/store";
 
 defineProps({
   region: {
@@ -52,10 +60,26 @@ defineProps({
   }
 });
 
-function countryVisitedChanged(country: Country) {
-  console.log(country);
-}
+const store = useStore(key);
+const userInfo = computed(() => store.getters.userInfo).value;
 
+async function countryVisitedChanged(country: Country) {
+  const newValue = !country.visited.valueOf();
+  const countryObj = userInfo.countries[country.type].find(c => c.code == country.code);
+  if (countryObj) {
+    countryObj.visited = newValue;
+  } else {
+    userInfo.countries[country.type].push({
+      code: country.code,
+      visited: newValue
+    });
+  }
+
+  const currentUser = await getCurrentUser();
+  await updateDoc(doc(usersCollection, currentUser?.uid), {
+    countries: userInfo.countries,
+  });
+}
 </script>
 
 <style scoped>
@@ -69,14 +93,10 @@ function countryVisitedChanged(country: Country) {
   display: inline-block;
 }
 
-.sub-label {
-  color: var(--ion-color-medium);
-}
-
 ion-checkbox {
   --size: 32px;
-  --checkbox-background-checked: var(--ion-item-background);
-  --checkmark-color: var(--ion-color-tertiary);
+  --checkbox-background-checked: var(--ion-color-primary);
+  --checkmark-color: var(--ion-color-light);
 }
 
 ion-checkbox::part(container) {

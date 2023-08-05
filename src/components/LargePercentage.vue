@@ -26,7 +26,7 @@ defineProps({
     type: String,
     required: true,
     validator(value: string) {
-      return ['primary', 'secondary'].includes(value)
+      return ['ion-color-primary', 'ion-color-secondary'].includes(value)
     }
   }
 });
@@ -43,13 +43,5 @@ defineProps({
 
 .large-percentage {
   font-size: 5em;
-}
-
-.primary {
-  color: var(--ion-color-primary);
-}
-
-.secondary {
-  color: var(--ion-color-secondary);
 }
 </style>

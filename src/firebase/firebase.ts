@@ -1,11 +1,11 @@
-import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, collection, doc } from 'firebase/firestore'
-import { useDocument } from "vuefire";
+import {initializeApp} from 'firebase/app';
+import {GoogleAuthProvider} from 'firebase/auth';
+import {getFirestore, collection, doc} from 'firebase/firestore'
+import {useDocument} from "vuefire";
 import CountriesInfo from "@/models/CountriesInfo";
 import UserInfo from "@/models/UserInfo";
 import secret from './secret.json';
-import { FirebaseOptions } from "@firebase/app";
+import {FirebaseOptions} from "@firebase/app";
 
 export const firebaseApp = initializeApp(secret as FirebaseOptions);
 

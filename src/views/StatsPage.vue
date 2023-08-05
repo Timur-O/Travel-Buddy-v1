@@ -5,25 +5,26 @@
     <ion-content :fullscreen="true">
       <h2 class="greeting">Hi {{ name }}! You've travelled to</h2>
 
-      <LargePercentage title="of countries!" :percentage="world.percentageVisitedByNumber" direction="row" color="primary"/>
-      <LargePercentage title="By area, that's" :percentage="world.percentageVisitedByArea" direction="row-reverse" color="secondary" />
+      <LargePercentage title="of countries!" :percentage="world.percentageVisitedByNumber" direction="row" color="ion-color-primary"/>
+      <LargePercentage title="By area, that's" :percentage="world.percentageVisitedByArea" direction="row-reverse" color="ion-color-secondary" />
 
       <h3 class="closer-look">Let's take a closer look:</h3>
 
-      <RegionSummaryList :regions="world.regions"/>
+      <RegionSummaryList :regions="worldRegions"/>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import {IonPage, IonContent} from '@ionic/vue';
 import Header from "@/components/Header.vue";
 import LargePercentage from "@/components/LargePercentage.vue";
 import RegionSummaryList from "@/components/RegionSummaryList.vue";
-import { useStore } from "vuex";
-import { computed } from "vue";
+import {useStore} from "vuex";
+import {computed} from "vue";
 import World from "@/models/World";
-import { key } from "@/store";
+import {key} from "@/store";
+import Region from "@/models/Region";
 
 const store = useStore(key);
 const userInfo = computed(() => store.getters.userInfo).value;
@@ -36,6 +37,7 @@ if (userInfo.includeNonSovereign) {
 } else {
   world = computed(() => store.getters.sovereignWorld).value;
 }
+let worldRegions: Array<Region> = world.regions.sort((a, b) => b.visitedNumber - a.visitedNumber);
 </script>
 
 <style scoped>

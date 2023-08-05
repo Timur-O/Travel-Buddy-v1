@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
+import {createRouter, createWebHistory} from '@ionic/vue-router';
+import {RouteRecordRaw} from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
 import LoginPage from '@/views/LoginPage.vue';
 import {getCurrentUser} from "vuefire";
@@ -36,6 +36,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'settings',
+        name: 'settings',
         component: () => import('@/views/SettingsPage.vue')
       }
     ]

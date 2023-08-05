@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router';
 
-import { IonicVue } from '@ionic/vue';
+import {IonicVue} from '@ionic/vue';
 
-import { store, key } from "@/store";
+import {store, key} from "@/store";
 
-import { VueFire, VueFireAuth } from 'vuefire'
-import { firebaseApp } from './firebase/firebase'
+import {VueFire, VueFireAuth} from 'vuefire'
+import {firebaseApp} from './firebase/firebase'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';

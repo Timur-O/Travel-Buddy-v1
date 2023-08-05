@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonApp, IonContent, IonRouterOutlet, IonThumbnail, IonSpinner } from '@ionic/vue';
+import {IonApp, IonContent, IonRouterOutlet, IonThumbnail, IonSpinner} from '@ionic/vue';
 </script>
 
 <style scoped>

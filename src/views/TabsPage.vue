@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import { IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { listOutline, mapOutline, statsChartOutline } from 'ionicons/icons';
-import { useStore } from "vuex";
-import { computed } from "vue";
-import { key } from "@/store";
+import {IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet} from '@ionic/vue';
+import {listOutline, mapOutline, statsChartOutline} from 'ionicons/icons';
+import {useStore} from "vuex";
+import {computed} from "vue";
+import {key} from "@/store";
 
 export default {
   name: 'TabsPage',

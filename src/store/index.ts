@@ -1,15 +1,15 @@
-import { createStore, Store } from "vuex";
-import { signInWithPopup, signOut } from 'firebase/auth'
-import { getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection } from "@/firebase/firebase";
-import { getCurrentUser, useFirebaseAuth } from "vuefire";
+import {createStore, Store} from "vuex";
+import {signInWithPopup, signOut} from 'firebase/auth'
+import {getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection} from "@/firebase/firebase";
+import {getCurrentUser, useFirebaseAuth} from "vuefire";
 import router from "@/router";
-import { doc, setDoc } from "firebase/firestore";
+import {doc, setDoc} from "firebase/firestore";
 import World from "@/models/World";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
 import UserInfo from "@/models/UserInfo";
 import CountriesInfo from "@/models/CountriesInfo";
-import { InjectionKey } from "vue";
+import {InjectionKey} from "vue";
 
 // define typings for store state
 export interface State {
@@ -114,12 +114,18 @@ export const store = createStore<State>({
             // Combine UN and non-UN countries
             let sovereign: any = {};
             Object.entries(state.countriesInfo!.un).forEach(([region, countries]) => {
+                countries.forEach((country: any) => {
+                    country['type'] = 'un';
+                });
                 sovereign[region] = countries;
             });
             Object.entries(state.countriesInfo!.nonUn).forEach(([region, countries]) => {
                 if (sovereign[region] == undefined) {
                     sovereign[region] = [];
                 }
+                countries.forEach((country: any) => {
+                    country['type'] = 'nonUn';
+                });
                 sovereign[region] = sovereign[region].concat(countries);
             });
             Object.entries(sovereign).forEach(([region, countries]) => {
@@ -152,6 +158,8 @@ export const store = createStore<State>({
                             }
 
                             return new Country(
+                                country.cca3,
+                                country.type,
                                 country.name.common,
                                 country.flag,
                                 country.area,
@@ -178,6 +186,8 @@ export const store = createStore<State>({
                             }
 
                             return new Country(
+                                country.cca3,
+                                'nonSovereign',
                                 country.name.common,
                                 country.flag,
                                 country.area,
@@ -192,18 +202,27 @@ export const store = createStore<State>({
             // Combine all
             let all: any = {};
             Object.entries(state.countriesInfo!.un).forEach(([region, countries]) => {
+                countries.forEach((country: any) => {
+                    country['type'] = 'un';
+                });
                 all[region] = countries;
             });
             Object.entries(state.countriesInfo!.nonUn).forEach(([region, countries]) => {
                 if (all[region] == undefined) {
                     all[region] = [];
                 }
+                countries.forEach((country: any) => {
+                    country['type'] = 'nonUn';
+                });
                 all[region] = all[region].concat(countries);
             });
             Object.entries(state.countriesInfo!.nonSovereign).forEach(([region, countries]) => {
                 if (all[region] == undefined) {
                     all[region] = [];
                 }
+                countries.forEach((country: any) => {
+                    country['type'] = 'nonSovereign';
+                });
                 all[region] = all[region].concat(countries);
             });
             Object.entries(all).forEach(([region, countries]) => {
@@ -239,6 +258,8 @@ export const store = createStore<State>({
                             }
 
                             return new Country(
+                                country.cca3,
+                                country.type,
                                 country.name.common,
                                 country.flag,
                                 country.area,

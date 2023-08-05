@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonItem, IonLabel, IonList } from '@ionic/vue';
+import {IonItem, IonLabel, IonList} from '@ionic/vue';
 import Region from "@/models/Region";
 
 defineProps({

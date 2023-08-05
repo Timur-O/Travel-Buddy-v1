@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, IonThumbnail, IonImg, IonText } from "@ionic/vue";
-import { ref } from "vue";
-import { store } from "@/store";
+import {IonPage, IonContent, IonThumbnail, IonImg, IonText} from "@ionic/vue";
+import {ref} from "vue";
+import {store} from "@/store";
 
 const loginErr = ref(false);
 </script>
