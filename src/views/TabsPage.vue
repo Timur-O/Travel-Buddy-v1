@@ -22,17 +22,25 @@
 <script lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
 import { listOutline, mapOutline, statsChartOutline } from 'ionicons/icons';
-import { getCurrentUser } from "vuefire";
-import { getCountriesInfo, getUserInfo } from "@/firebase";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
   name: 'TabsPage',
   components: {IonTabBar, IonTabButton, IonTabs, IonIcon, IonPage, IonRouterOutlet},
   async setup() {
-    const currentUser = await getCurrentUser();
-    const userInfo = await getUserInfo(currentUser?.uid!);
-    const countriesInfo = await getCountriesInfo();
-    
+
+    const store = useStore();
+    const userInfo = computed(() => store.getters.userInfo).value;
+    const countriesInfo = computed(() => store.getters.countriesInfo).value;
+
+    if (userInfo == null) {
+      await store.dispatch("fetchUserInfo");
+    }
+    if (countriesInfo == null) {
+      await store.dispatch("fetchCountriesInfo");
+    }
+
     return {
       listOutline,
       mapOutline,

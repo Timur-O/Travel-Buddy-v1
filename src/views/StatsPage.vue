@@ -22,10 +22,16 @@ import LargePercentage from "@/components/LargePercentage.vue";
 import RegionSummaryList from "@/components/RegionSummaryList.vue";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
+import { useStore } from "vuex";
+import { computed } from "vue";
+
+const store = useStore();
+const userInfo = computed(() => store.getters.userInfo).value;
+
+const name = userInfo.name.substring(0, userInfo.name.indexOf(" "));
 
 // TODO - Remove Test Code
 // TODO - Sort Regions by Percentage
-let name = "Timur";
 const regions = [
   new Region("Region 1", [
     new Country("Canada", "🇨🇦", 100, false),
