@@ -7,8 +7,8 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import {IonPage, IonContent} from '@ionic/vue';
+<script lang="ts" setup>
+import {IonContent, IonPage} from '@ionic/vue';
 </script>
 
 <style scoped>

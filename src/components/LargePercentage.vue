@@ -1,11 +1,11 @@
 <template>
   <div class="large-percentage-container">
-    <h1 class="large-percentage" :class="color">{{ Math.round(percentage) }}%</h1>
+    <h1 :class="color" class="large-percentage">{{ Math.round(percentage) }}%</h1>
     <h5 class="large-percentage-desc">{{ title }}</h5>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps({
   title: {
     type: String,

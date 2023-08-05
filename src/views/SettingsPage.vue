@@ -1,21 +1,21 @@
 <template>
   <ion-page>
-    <Header />
+    <Header/>
 
     <ion-content :fullscreen="true">
       <div class="container">
-        <ion-toggle class="option"
-                    :checked="userInfo.includeNonSovereign"
-                    @ionChange="includeNonSovereignChanged"
-                    mode="ios">
+        <ion-toggle :checked="userInfo.includeNonSovereign"
+                    class="option"
+                    mode="ios"
+                    @ionChange="includeNonSovereignChanged">
           Include Non-Sovereign in Statistics
         </ion-toggle>
-        <ion-button color="danger"
-                    aria-label="Sign Out Button"
+        <ion-button aria-label="Sign Out Button"
+                    color="danger"
                     @click="store.dispatch('logout')">
-          <ion-icon color="primary"
-                    :icon="exitOutline"
-                    class="icon"></ion-icon>
+          <ion-icon :icon="exitOutline"
+                    class="icon"
+                    color="primary"></ion-icon>
           Sign Out
         </ion-button>
       </div>
@@ -23,8 +23,8 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import {IonContent, IonIcon, IonPage, IonButton, IonToggle} from "@ionic/vue";
+<script lang="ts" setup>
+import {IonButton, IonContent, IonIcon, IonPage, IonToggle} from "@ionic/vue";
 import Header from "@/components/Header.vue";
 import {useStore} from "vuex";
 import {key} from "@/store";
@@ -55,6 +55,7 @@ async function includeNonSovereignChanged() {
   height: 100%;
   justify-content: space-evenly;
 }
+
 .icon {
   margin-right: 10px;
 }

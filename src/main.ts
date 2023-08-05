@@ -4,7 +4,7 @@ import router from './router';
 
 import {IonicVue} from '@ionic/vue';
 
-import {store, key} from "@/store";
+import {key, store} from "@/store";
 
 import {VueFire, VueFireAuth} from 'vuefire'
 import {firebaseApp} from './firebase/firebase'
@@ -29,16 +29,16 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .use(store, key)
-  .use(VueFire, {
-    firebaseApp,
-    modules: [
-      VueFireAuth(),
-    ],
-  });
-  
+    .use(IonicVue)
+    .use(router)
+    .use(store, key)
+    .use(VueFire, {
+        firebaseApp,
+        modules: [
+            VueFireAuth(),
+        ],
+    });
+
 router.isReady().then(() => {
-  app.mount('#app');
+    app.mount('#app');
 });

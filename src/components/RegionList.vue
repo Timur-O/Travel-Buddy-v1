@@ -15,16 +15,18 @@
         <ion-list lines="inset">
           <ion-item v-for="country in region.countries">
             <ion-label>
-              <ion-checkbox justify="space-between"
-                            :checked="country.visited"
-                            @ionChange="() => countryVisitedChanged(country)"
-                            mode="ios">
-                <p class="flag">{{ country.flag ? country.flag : '🚫'}}</p>
+              <ion-checkbox :checked="country.visited"
+                            justify="space-between"
+                            mode="ios"
+                            @ionChange="() => countryVisitedChanged(country)">
+                <p class="flag">{{ country.flag ? country.flag : '🚫' }}</p>
                 <div class="name-and-area-container">
-                  {{ country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '') }}
+                  {{
+                    country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '')
+                  }}
                   <p class="ion-color-medium">
                     {{ country.area.toLocaleString() }} km<sup>2</sup>
-                    <ion-text color="secondary" v-if="country.type == 'nonUn'">
+                    <ion-text v-if="country.type == 'nonUn'" color="secondary">
                       , Non-UN Member
                     </ion-text>
                   </p>
@@ -38,17 +40,17 @@
   </ion-card>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
+  IonAccordion,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCheckbox,
   IonItem,
   IonLabel,
-  IonList,
-  IonCheckbox,
-  IonAccordion
+  IonList
 } from '@ionic/vue';
 import Region from "@/models/Region";
 import Country from "@/models/Country";

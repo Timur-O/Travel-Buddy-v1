@@ -3,6 +3,7 @@ export interface ThreeCountryTypes {
     nonUn: Array<any>,
     nonSovereign: Array<any>
 }
+
 export default class UserInfo {
     name: string;
     email: string;

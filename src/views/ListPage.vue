@@ -1,10 +1,10 @@
 <template>
   <ion-page>
-    <Header />
+    <Header/>
 
     <ion-content :fullscreen="true">
       <ion-accordion-group :multiple="true">
-        <RegionList v-for="region in sovereignRegions" :region="region" />
+        <RegionList v-for="region in sovereignRegions" :region="region"/>
 
         <ion-card>
           <ion-accordion>
@@ -21,7 +21,7 @@
             <!-- Statistics Exclusion Warning -->
             <div slot="content">
               <ion-card v-if="!userInfo.includeNonSovereign">
-                <ion-accordion readonly :toggle-icon="informationCircleOutline">
+                <ion-accordion :toggle-icon="informationCircleOutline" readonly>
                   <ion-item slot="header" color="warning">
                     <ion-card-header>
                       <ion-card-subtitle class="ion-text-justify">
@@ -33,7 +33,7 @@
                 </ion-accordion>
               </ion-card>
 
-              <RegionList v-for="region in nonSovereignRegions" :region="region" />
+              <RegionList v-for="region in nonSovereignRegions" :region="region"/>
             </div>
           </ion-accordion>
         </ion-card>
@@ -43,16 +43,17 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-  IonPage,
-  IonContent,
-  IonAccordionGroup,
-  IonItem,
-  IonCardTitle,
-  IonCard,
   IonAccordion,
-  IonCardHeader, IonCardSubtitle
+  IonAccordionGroup,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonContent,
+  IonItem,
+  IonPage
 } from '@ionic/vue';
 import Header from "@/components/Header.vue";
 import RegionList from "@/components/RegionList.vue";

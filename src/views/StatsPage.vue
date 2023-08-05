@@ -1,18 +1,18 @@
 <template>
   <ion-page>
-    <Header />
+    <Header/>
 
     <ion-content :fullscreen="true">
       <h2 class="greeting">Hi {{ name }}! You've travelled to</h2>
 
-      <LargePercentage title="of countries!"
-                       :percentage="world.percentageVisitedByNumber"
+      <LargePercentage :percentage="world.percentageVisitedByNumber"
+                       color="primary"
                        direction="row"
-                       color="primary"/>
-      <LargePercentage title="By area, that's"
-                       :percentage="world.percentageVisitedByArea"
+                       title="of countries!"/>
+      <LargePercentage :percentage="world.percentageVisitedByArea"
+                       color="secondary"
                        direction="row-reverse"
-                       color="secondary"/>
+                       title="By area, that's"/>
 
       <h3 class="closer-look">Let's take a closer look:</h3>
 
@@ -21,8 +21,8 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import {IonPage, IonContent} from '@ionic/vue';
+<script lang="ts" setup>
+import {IonContent, IonPage} from '@ionic/vue';
 import Header from "@/components/Header.vue";
 import LargePercentage from "@/components/LargePercentage.vue";
 import RegionSummaryList from "@/components/RegionSummaryList.vue";

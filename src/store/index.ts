@@ -1,11 +1,6 @@
 import {createStore, Store} from "vuex";
 import {signInWithPopup, signOut} from 'firebase/auth'
-import {
-    getCountriesInfo,
-    getUserInfo,
-    googleAuthProvider,
-    usersCollection
-} from "@/firebase/firebase";
+import {getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection} from "@/firebase/firebase";
 import {getCurrentUser, useFirebaseAuth} from "vuefire";
 import router from "@/router";
 import {doc, setDoc} from "firebase/firestore";
@@ -39,7 +34,7 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        async login(context, { error }) {
+        async login(context, {error}) {
             signInWithPopup(
                 useFirebaseAuth()!,
                 googleAuthProvider
@@ -55,33 +50,33 @@ export const store = createStore<State>({
                     const unCountries = Object
                         .values(countriesInfo.un)
                         .flatMap((region: Array<any>) => {
-                        return region.map((country) => {
-                            return {
-                                code: country.cca3,
-                                visited: false
-                            };
+                            return region.map((country) => {
+                                return {
+                                    code: country.cca3,
+                                    visited: false
+                                };
+                            });
                         });
-                    });
                     const nonUnCountries = Object
                         .values(countriesInfo.nonUn)
                         .flatMap((region: Array<any>) => {
-                        return region.map((country) => {
-                            return {
-                                code: country.cca3,
-                                visited: false
-                            };
+                            return region.map((country) => {
+                                return {
+                                    code: country.cca3,
+                                    visited: false
+                                };
+                            });
                         });
-                    });
                     const nonSovereignCountries = Object
                         .values(countriesInfo.nonSovereign)
                         .flatMap((region: Array<any>) => {
-                        return region.map((country) => {
-                            return {
-                                code: country.cca3,
-                                visited: false
-                            };
+                            return region.map((country) => {
+                                return {
+                                    code: country.cca3,
+                                    visited: false
+                                };
+                            });
                         });
-                    });
 
                     await setDoc(doc(usersCollection, currentUser?.uid), {
                         name: currentUser?.displayName,
@@ -133,7 +128,7 @@ export const store = createStore<State>({
                         country['type'] = 'un';
                     });
                     sovereign[region] = countries;
-            });
+                });
             Object.entries(state.countriesInfo!.nonUn)
                 .forEach(([region, countries]) => {
                     if (sovereign[region] == undefined) {
@@ -143,7 +138,7 @@ export const store = createStore<State>({
                         country['type'] = 'nonUn';
                     });
                     sovereign[region] = sovereign[region].concat(countries);
-            });
+                });
             Object.entries(sovereign).forEach(([region, countries]) => {
                 sovereign[region] = countries.sort((a: any, b: any) => {
                     return a.name.common.localeCompare(b.name.common);
@@ -153,7 +148,7 @@ export const store = createStore<State>({
             // Combine UN and non-UN countries (for user data)
             let userSovereign: Array<any> = [];
             state.userInfo!.countries.un.forEach((country) => {
-               userSovereign.push(country);
+                userSovereign.push(country);
             });
             state.userInfo!.countries.nonUn.forEach((country) => {
                 userSovereign.push(country);
@@ -213,7 +208,7 @@ export const store = createStore<State>({
                                 );
                             })
                         );
-                })
+                    })
             );
         },
         wholeWorld: (state) => {
@@ -225,7 +220,7 @@ export const store = createStore<State>({
                         country['type'] = 'un';
                     });
                     all[region] = countries;
-            });
+                });
             Object.entries(state.countriesInfo!.nonUn)
                 .forEach(([region, countries]) => {
                     if (all[region] == undefined) {
@@ -235,7 +230,7 @@ export const store = createStore<State>({
                         country['type'] = 'nonUn';
                     });
                     all[region] = all[region].concat(countries);
-            });
+                });
             Object.entries(state.countriesInfo!.nonSovereign)
                 .forEach(([region, countries]) => {
                     if (all[region] == undefined) {
@@ -245,7 +240,7 @@ export const store = createStore<State>({
                         country['type'] = 'nonSovereign';
                     });
                     all[region] = all[region].concat(countries);
-            });
+                });
             Object.entries(all).forEach(([region, countries]) => {
                 all[region] = countries.sort((a: any, b: any) => {
                     return a.name.common.localeCompare(b.name.common);

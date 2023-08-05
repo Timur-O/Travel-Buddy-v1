@@ -2,13 +2,13 @@
   <ion-app>
     <Suspense>
       <template #default>
-        <ion-router-outlet />
+        <ion-router-outlet/>
       </template>
       <template #fallback>
         <ion-content :color="'primary'">
           <div id="container">
             <ion-thumbnail class="app-icon">
-              <img src="/favicon.png"  alt="App Icon"/>
+              <img alt="App Icon" src="/favicon.png"/>
             </ion-thumbnail>
             <ion-spinner name="dots"></ion-spinner>
           </div>
@@ -18,8 +18,8 @@
   </ion-app>
 </template>
 
-<script setup lang="ts">
-import {IonApp, IonContent, IonRouterOutlet, IonThumbnail, IonSpinner} from '@ionic/vue';
+<script lang="ts" setup>
+import {IonApp, IonContent, IonRouterOutlet, IonSpinner, IonThumbnail} from '@ionic/vue';
 </script>
 
 <style scoped>

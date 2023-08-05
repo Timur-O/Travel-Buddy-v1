@@ -3,16 +3,16 @@
     <ion-content id="login-container">
       <div id="container-top">
         <ion-thumbnail class="app-icon">
-          <img src="/favicon.png"  alt="App Icon"/>
+          <img alt="App Icon" src="/favicon.png"/>
         </ion-thumbnail>
         <h1 class="title">Travel Buddy</h1>
       </div>
       <div id="container-bottom">
         <ion-img src="/google_login.png"
                  @click="store.dispatch('login', { error: loginErr })"></ion-img>
-        <ion-text class="error"
-                  color="danger"
-                  v-if="loginErr">
+        <ion-text v-if="loginErr"
+                  class="error"
+                  color="danger">
           Something went wrong, please try again!
         </ion-text>
       </div>
@@ -20,8 +20,8 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import {IonPage, IonContent, IonThumbnail, IonImg, IonText} from "@ionic/vue";
+<script lang="ts" setup>
+import {IonContent, IonImg, IonPage, IonText, IonThumbnail} from "@ionic/vue";
 import {ref} from "vue";
 import {store} from "@/store";
 
