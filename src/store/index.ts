@@ -1,9 +1,9 @@
 import {createStore, Store} from "vuex";
-import {signInWithPopup, signOut} from 'firebase/auth'
+import {signInWithPopup, signOut, deleteUser} from 'firebase/auth'
 import {getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection} from "@/firebase/firebase";
 import {getCurrentUser, useFirebaseAuth} from "vuefire";
 import router from "@/router";
-import {doc, setDoc} from "firebase/firestore";
+import {doc, setDoc, deleteDoc} from "firebase/firestore";
 import World from "@/models/World";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
@@ -105,6 +105,12 @@ export const store = createStore<State>({
             });
 
             context.commit("setUserInfo", null);
+        },
+        async deleteAccount(context) {
+            const currentUser = await getCurrentUser();
+            await deleteDoc(doc(usersCollection, currentUser?.uid!));
+            await deleteUser(currentUser!);
+            await router.push('/login');
         },
         async fetchUserInfo(context) {
             const currentUser = await getCurrentUser();

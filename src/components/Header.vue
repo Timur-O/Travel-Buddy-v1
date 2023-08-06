@@ -31,7 +31,7 @@ import router from "@/router";
 
 <style scoped>
 #app-icon {
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 #header {
@@ -44,5 +44,7 @@ import router from "@/router";
 #header-title {
   font-family: 'Vanity', 'Engebrechtre', sans-serif;
   font-weight: bold;
+  padding-top: 2%;
+  margin: 0;
 }
 </style>

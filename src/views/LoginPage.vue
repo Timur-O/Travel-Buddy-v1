@@ -1,20 +1,22 @@
 <template>
   <ion-page>
-    <ion-content id="login-container">
-      <div id="container-top">
-        <ion-thumbnail class="app-icon">
-          <img alt="App Icon" src="/favicon.png"/>
-        </ion-thumbnail>
-        <h1 class="title">Travel Buddy</h1>
-      </div>
-      <div id="container-bottom">
-        <ion-img src="/google_login.png"
-                 @click="store.dispatch('login', { error: loginErr })"></ion-img>
-        <ion-text v-if="loginErr"
-                  class="error"
-                  color="danger">
-          Something went wrong, please try again!
-        </ion-text>
+    <ion-content id="background-container">
+      <div id="login-container">
+        <div id="container-top">
+          <ion-thumbnail class="app-icon">
+            <img alt="App Icon" src="/favicon.png"/>
+          </ion-thumbnail>
+          <h1 class="title">Travel Buddy</h1>
+        </div>
+        <div id="container-bottom">
+          <ion-img src="/google_login.png"
+                   @click="store.dispatch('login', { error: loginErr })"></ion-img>
+          <ion-text v-if="loginErr"
+                    class="error"
+                    color="danger">
+            Something went wrong, please try again!
+          </ion-text>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -29,8 +31,13 @@ const loginErr = ref(false);
 </script>
 
 <style scoped>
-#login-container {
+#background-container {
   --background: url("/login-background.jpg") no-repeat center/220%;
+}
+
+#login-container {
+  height: 100%;
+  backdrop-filter: blur(7px);
 }
 
 .title {
@@ -64,7 +71,7 @@ const loginErr = ref(false);
 }
 
 .app-icon > img {
-  border-radius: 5px;
+  border-radius: 35px;
 }
 
 .error {
