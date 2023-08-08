@@ -1,9 +1,15 @@
 import {createStore, Store} from "vuex";
-import {signInWithPopup, signOut, deleteUser} from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    deleteUser,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut
+} from 'firebase/auth'
 import {getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection} from "@/firebase/firebase";
 import {getCurrentUser, useFirebaseAuth} from "vuefire";
 import router from "@/router";
-import {doc, setDoc, deleteDoc} from "firebase/firestore";
+import {deleteDoc, doc, setDoc} from "firebase/firestore";
 import World from "@/models/World";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
@@ -34,64 +40,34 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        async login(context, {error}) {
+        async emailLogin(context, {email, password, error, errorMsg}) {
+            signInWithEmailAndPassword(useFirebaseAuth()!, email, password)
+                .then(async () => {
+                    await context.dispatch("postLoginTasks", {name: null});
+                })
+                .catch((reason) => {
+                    error.value = true;
+                    errorMsg.value = "An error occurred. Please try again later.";
+                    console.error('Failed to login:', reason);
+                });
+        },
+        async emailSignup(context, {name, email, password, error, errorMsg}) {
+            createUserWithEmailAndPassword(useFirebaseAuth()!, email, password)
+                .then(async () => {
+                    await context.dispatch("postLoginTasks", {name: name});
+                })
+                .catch((reason) => {
+                    error.value = true;
+                    errorMsg.value = "An error occurred. Please try again later.";
+                    console.error('Failed to signup:', reason);
+                });
+        },
+        async googleLogin(context, {error}) {
             signInWithPopup(
                 useFirebaseAuth()!,
                 googleAuthProvider
             ).then(async () => {
-                const currentUser = await getCurrentUser();
-                const userInfo = await getUserInfo(currentUser?.uid!);
-
-                // Create document for user if it doesn't exist
-                if (userInfo == null) {
-                    const countriesInfo = await getCountriesInfo();
-                    context.commit("setCountriesInfo", countriesInfo);
-
-                    const unCountries = Object
-                        .values(countriesInfo.un)
-                        .flatMap((region: Array<any>) => {
-                            return region.map((country) => {
-                                return {
-                                    code: country.cca3,
-                                    visited: false
-                                };
-                            });
-                        });
-                    const nonUnCountries = Object
-                        .values(countriesInfo.nonUn)
-                        .flatMap((region: Array<any>) => {
-                            return region.map((country) => {
-                                return {
-                                    code: country.cca3,
-                                    visited: false
-                                };
-                            });
-                        });
-                    const nonSovereignCountries = Object
-                        .values(countriesInfo.nonSovereign)
-                        .flatMap((region: Array<any>) => {
-                            return region.map((country) => {
-                                return {
-                                    code: country.cca3,
-                                    visited: false
-                                };
-                            });
-                        });
-
-                    await setDoc(doc(usersCollection, currentUser?.uid), {
-                        name: currentUser?.displayName,
-                        email: currentUser?.email,
-                        includeNonSovereign: false,
-                        countries: {
-                            un: unCountries,
-                            nonUn: nonUnCountries,
-                            nonSovereign: nonSovereignCountries
-                        }
-                    });
-                }
-
-                context.commit("setUserInfo", userInfo);
-                await router.push(router.currentRoute.value.query.redirect || '/');
+                await context.dispatch("postLoginTasks", {name: null});
             }).catch((reason) => {
                 error.value = true;
                 console.error('Failed to login:', reason);
@@ -120,6 +96,62 @@ export const store = createStore<State>({
         async fetchCountriesInfo(context) {
             const countriesInfo = await getCountriesInfo();
             context.commit("setCountriesInfo", countriesInfo);
+        },
+        async postLoginTasks(context, {name}) {
+            const currentUser = await getCurrentUser();
+            const userInfo = await getUserInfo(currentUser?.uid!);
+
+            // Create document for user if it doesn't exist
+            if (userInfo == null) {
+                const countriesInfo = await getCountriesInfo();
+                context.commit("setCountriesInfo", countriesInfo);
+
+                const unCountries = Object
+                    .values(countriesInfo.un)
+                    .flatMap((region: Array<any>) => {
+                        return region.map((country) => {
+                            return {
+                                code: country.cca3,
+                                visited: false
+                            };
+                        });
+                    });
+                const nonUnCountries = Object
+                    .values(countriesInfo.nonUn)
+                    .flatMap((region: Array<any>) => {
+                        return region.map((country) => {
+                            return {
+                                code: country.cca3,
+                                visited: false
+                            };
+                        });
+                    });
+                const nonSovereignCountries = Object
+                    .values(countriesInfo.nonSovereign)
+                    .flatMap((region: Array<any>) => {
+                        return region.map((country) => {
+                            return {
+                                code: country.cca3,
+                                visited: false
+                            };
+                        });
+                    });
+
+                const nameToSave = name == null ? currentUser?.displayName : name;
+                await setDoc(doc(usersCollection, currentUser?.uid), {
+                    name: nameToSave,
+                    email: currentUser?.email,
+                    includeNonSovereign: false,
+                    countries: {
+                        un: unCountries,
+                        nonUn: nonUnCountries,
+                        nonSovereign: nonSovereignCountries
+                    }
+                });
+            }
+
+            context.commit("setUserInfo", userInfo);
+            await router.push(router.currentRoute.value.query.redirect || '/');
         }
     },
     getters: {

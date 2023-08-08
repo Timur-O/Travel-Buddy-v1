@@ -50,7 +50,8 @@ import {
   IonCheckbox,
   IonItem,
   IonLabel,
-  IonList
+  IonList,
+  IonText
 } from '@ionic/vue';
 import Region from "@/models/Region";
 import Country from "@/models/Country";

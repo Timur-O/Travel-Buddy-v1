@@ -25,12 +25,18 @@
 
           <ion-button aria-label="Delete Account Button"
                       color="danger"
-                      @click="store.dispatch('deleteAccount')">
+                      id="show-delete-account-modal">
             <ion-icon :icon="trashBinOutline"
                       class="icon"
                       color="primary"></ion-icon>
             Delete Account
           </ion-button>
+          <ion-alert
+              :buttons="deleteModalButtons"
+              header="Are you sure you want to delete your account?"
+              trigger="show-delete-account-modal"
+              @didDismiss="($event: any) => { if ($event.detail.role === 'confirm') store.dispatch('deleteAccount') }"
+          ></ion-alert>
         </div>
       </div>
     </ion-content>
@@ -38,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import {IonButton, IonContent, IonIcon, IonPage, IonToggle} from "@ionic/vue";
+import {IonAlert, IonButton, IonContent, IonIcon, IonPage, IonToggle} from "@ionic/vue";
 import Header from "@/components/Header.vue";
 import {useStore} from "vuex";
 import {key} from "@/store";
@@ -59,6 +65,17 @@ async function includeNonSovereignChanged() {
     includeNonSovereign: newValue,
   });
 }
+
+const deleteModalButtons = [
+  {
+    text: 'Cancel',
+    role: 'cancel'
+  },
+  {
+    text: 'Yes',
+    role: 'confirm'
+  },
+];
 </script>
 
 <style scoped>
