@@ -85,13 +85,25 @@ const nonSovereignWorld: ComputedRef<World> = computed(() => store.getters.nonSo
 
 const sovereignRegions: ComputedRef<Region[]> = computed(() => {
   return [...sovereignWorld.value.regions].sort((a, b) => {
-    return b.visitedNumber - a.visitedNumber
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
   });
 });
 
 const nonSovereignRegions: ComputedRef<Region[]> = computed(() => {
   return [...nonSovereignWorld.value.regions].sort((a, b) => {
-    return b.visitedNumber - a.visitedNumber
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
   });
 });
 </script>
