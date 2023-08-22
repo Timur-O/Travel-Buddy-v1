@@ -2,15 +2,18 @@
   <ion-app>
     <Suspense>
       <template #default>
-        <ion-router-outlet/>
+        <ion-router-outlet />
       </template>
       <template #fallback>
         <ion-content :color="'primary'">
           <div id="container">
             <ion-thumbnail class="app-icon">
-              <img alt="App Icon" src="/favicon.png"/>
+              <img
+                alt="App Icon"
+                src="/favicon.png"
+              >
             </ion-thumbnail>
-            <ion-spinner name="dots"></ion-spinner>
+            <ion-spinner name="dots" />
           </div>
         </ion-content>
       </template>

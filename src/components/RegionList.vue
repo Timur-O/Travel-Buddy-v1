@@ -13,20 +13,30 @@
 
       <div slot="content">
         <ion-list lines="inset">
-          <ion-item v-for="country in region.countries">
+          <ion-item
+            v-for="country in region.countries"
+            :key="country.code.toString()"
+          >
             <ion-label>
-              <ion-checkbox :checked="country.visited"
-                            justify="space-between"
-                            mode="ios"
-                            @ionChange="() => countryVisitedChanged(country)">
-                <p class="flag">{{ country.flag ? country.flag : '🚫' }}</p>
+              <ion-checkbox
+                :checked="country.visited"
+                justify="space-between"
+                mode="ios"
+                @ion-change="() => countryVisitedChanged(country)"
+              >
+                <p class="flag">
+                  {{ country.flag ? country.flag : '⚠️' }}
+                </p>
                 <div class="name-and-area-container">
                   {{
                     country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '')
                   }}
                   <p class="ion-color-medium">
                     {{ country.area.toLocaleString() }} km<sup>2</sup>
-                    <ion-text v-if="country.type == 'nonUn'" color="secondary">
+                    <ion-text
+                      v-if="country.type == 'nonUn'"
+                      color="secondary"
+                    >
                       , Non-UN Member
                     </ion-text>
                   </p>

@@ -1,42 +1,52 @@
 <template>
   <ion-page>
-    <Header/>
+    <TopHeader />
 
     <ion-content :fullscreen="true">
       <div class="container">
         <div class="combined-container">
-          <ion-toggle :checked="userInfo.includeNonSovereign"
-                      class="option"
-                      mode="ios"
-                      @ionChange="includeNonSovereignChanged">
+          <ion-toggle
+            :checked="userInfo.includeNonSovereign"
+            class="option"
+            mode="ios"
+            @ion-change="includeNonSovereignChanged"
+          >
             Include Non-Sovereign in Statistics
           </ion-toggle>
         </div>
 
         <div class="combined-container">
-          <ion-button aria-label="Sign Out Button"
-                      color="warning"
-                      @click="store.dispatch('logout')">
-            <ion-icon :icon="exitOutline"
-                      class="icon"
-                      color="primary"></ion-icon>
+          <ion-button
+            aria-label="Sign Out Button"
+            color="warning"
+            @click="store.dispatch('logout')"
+          >
+            <ion-icon
+              :icon="exitOutline"
+              class="icon"
+              color="primary"
+            />
             Sign Out
           </ion-button>
 
-          <ion-button aria-label="Delete Account Button"
-                      color="danger"
-                      id="show-delete-account-modal">
-            <ion-icon :icon="trashBinOutline"
-                      class="icon"
-                      color="primary"></ion-icon>
+          <ion-button
+            id="show-delete-account-modal"
+            aria-label="Delete Account Button"
+            color="danger"
+          >
+            <ion-icon
+              :icon="trashBinOutline"
+              class="icon"
+              color="primary"
+            />
             Delete Account
           </ion-button>
           <ion-alert
-              :buttons="deleteModalButtons"
-              header="Are you sure you want to delete your account?"
-              trigger="show-delete-account-modal"
-              @didDismiss="($event: any) => { if ($event.detail.role === 'confirm') store.dispatch('deleteAccount') }"
-          ></ion-alert>
+            :buttons="deleteModalButtons"
+            header="Are you sure you want to delete your account?"
+            trigger="show-delete-account-modal"
+            @did-dismiss="($event: any) => { if ($event.detail.role === 'confirm') store.dispatch('deleteAccount') }"
+          />
         </div>
       </div>
     </ion-content>
@@ -45,8 +55,8 @@
 
 <script lang="ts" setup>
 import {IonAlert, IonButton, IonContent, IonIcon, IonPage, IonToggle} from "@ionic/vue";
-import Header from "@/components/Header.vue";
-import {Computed, useStore} from "vuex";
+import TopHeader from "@/components/TopHeader.vue";
+import {useStore} from "vuex";
 import {key} from "@/store";
 import {exitOutline, trashBinOutline} from "ionicons/icons";
 import {computed, ComputedRef} from "vue";

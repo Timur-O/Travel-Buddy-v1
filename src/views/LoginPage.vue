@@ -4,111 +4,152 @@
       <div id="login-container">
         <div id="container-top">
           <ion-thumbnail class="app-icon">
-            <img alt="App Icon" src="/favicon.png"/>
+            <img
+              alt="App Icon"
+              src="/favicon.png"
+            >
           </ion-thumbnail>
-          <h1 class="title">Travel Buddy</h1>
+          <h1 class="title">
+            Travel Buddy
+          </h1>
         </div>
         <div id="container-bottom">
-          <ion-button id="emailLoginButton" color="secondary">Login/Signup with Email</ion-button>
+          <ion-button
+            id="emailLoginButton"
+            color="secondary"
+          >
+            Login/Signup with Email
+          </ion-button>
           <br>
-          <ion-img src="/google_login.png"
-                   @click="store.dispatch('googleLogin', {
-                     error: googleLoginErr
-                   })"></ion-img>
-          <ion-text v-if="googleLoginErr"
-                    class="error"
-                    color="danger">
+          <ion-img
+            src="/google_login.png"
+            @click="store.dispatch('googleLogin', {
+              error: googleLoginErr
+            })"
+          />
+          <ion-text
+            v-if="googleLoginErr"
+            class="error"
+            color="danger"
+          >
             Something went wrong, please try again!
           </ion-text>
         </div>
       </div>
 
-      <ion-modal ref="emailLoginModal" mode="ios" trigger="emailLoginButton">
+      <ion-modal
+        ref="emailLoginModal"
+        mode="ios"
+        trigger="emailLoginButton"
+      >
         <ion-content class="ion-padding">
-          <ion-icon id="closeButton"
-                    :icon="closeOutline"
-                    aria-label="Close Button"
-                    color="danger"
-                    @click="dismissEmailLogin()"></ion-icon>
-          <h3 class="emailModalHeader">Login with Email</h3>
+          <ion-icon
+            id="closeButton"
+            :icon="closeOutline"
+            aria-label="Close Button"
+            color="danger"
+            @click="dismissEmailLogin()"
+          />
+          <h3 class="emailModalHeader">
+            Login with Email
+          </h3>
           <ion-item>
-            <ion-input id="loginEmail"
-                       ref="loginEmailValue"
-                       label="Email Address:"
-                       label-placement="stacked"
-                       placeholder="Enter your email..."
-                       type="email"></ion-input>
+            <ion-input
+              id="loginEmail"
+              ref="loginEmailValue"
+              label="Email Address:"
+              label-placement="stacked"
+              placeholder="Enter your email..."
+              type="email"
+            />
           </ion-item>
           <ion-item>
-            <ion-input id="loginPassword"
-                       ref="loginPasswordValue"
-                       label="Password:"
-                       label-placement="stacked"
-                       placeholder="Enter your password..."
-                       type="password"></ion-input>
+            <ion-input
+              id="loginPassword"
+              ref="loginPasswordValue"
+              label="Password:"
+              label-placement="stacked"
+              placeholder="Enter your password..."
+              type="password"
+            />
           </ion-item>
-          <ion-button id="loginButton"
-                      class="emailModalButton"
-                      color="secondary"
-                      expand="block"
-                      fill="outline"
-                      @click="loginWithEmail()">
+          <ion-button
+            id="loginButton"
+            class="emailModalButton"
+            color="secondary"
+            expand="block"
+            fill="outline"
+            @click="loginWithEmail()"
+          >
             Login
           </ion-button>
 
           <br>
           <br>
 
-          <h3 class="emailModalHeader">Signup with Email</h3>
+          <h3 class="emailModalHeader">
+            Signup with Email
+          </h3>
           <ion-item>
-            <ion-input id="signupName"
-                       ref="signUpNameValue"
-                       label="Name:"
-                       label-placement="stacked"
-                       placeholder="Enter your name..."
-                       type="text"></ion-input>
+            <ion-input
+              id="signupName"
+              ref="signUpNameValue"
+              label="Name:"
+              label-placement="stacked"
+              placeholder="Enter your name..."
+              type="text"
+            />
           </ion-item>
           <ion-item>
-            <ion-input id="signupEmail"
-                       ref="signUpEmailValue"
-                       label="Email Address:"
-                       label-placement="stacked"
-                       placeholder="Enter your email..."
-                       type="email"></ion-input>
+            <ion-input
+              id="signupEmail"
+              ref="signUpEmailValue"
+              label="Email Address:"
+              label-placement="stacked"
+              placeholder="Enter your email..."
+              type="email"
+            />
           </ion-item>
           <ion-item>
-            <ion-input id="signupPassword"
-                       ref="signUpPasswordValue"
-                       label="Password:"
-                       label-placement="stacked"
-                       placeholder="Enter your password..."
-                       type="password"></ion-input>
+            <ion-input
+              id="signupPassword"
+              ref="signUpPasswordValue"
+              label="Password:"
+              label-placement="stacked"
+              placeholder="Enter your password..."
+              type="password"
+            />
           </ion-item>
           <ion-item>
-            <ion-input id="signupConfirmPassword"
-                       ref="signUpConfirmPasswordValue"
-                       label="Confirm Password:"
-                       label-placement="stacked"
-                       placeholder="Re-enter your password..."
-                       type="password"></ion-input>
+            <ion-input
+              id="signupConfirmPassword"
+              ref="signUpConfirmPasswordValue"
+              label="Confirm Password:"
+              label-placement="stacked"
+              placeholder="Re-enter your password..."
+              type="password"
+            />
           </ion-item>
-          <ion-button id="signupButton"
-                      class="emailModalButton"
-                      color="secondary"
-                      expand="block"
-                      fill="outline"
-                      @click="signUpWithEmail()">
+          <ion-button
+            id="signupButton"
+            class="emailModalButton"
+            color="secondary"
+            expand="block"
+            fill="outline"
+            @click="signUpWithEmail()"
+          >
             Signup
           </ion-button>
 
-          <ion-text v-if="emailLoginErr"
-                    class="error"
-                    color="danger">
+          <ion-text
+            v-if="emailLoginErr"
+            class="error"
+            color="danger"
+          >
             {{ emailLoginErrMsg }}
           </ion-text>
         </ion-content>
       </ion-modal>
-
     </ion-content>
   </ion-page>
 </template>

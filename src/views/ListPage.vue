@@ -1,10 +1,14 @@
 <template>
   <ion-page>
-    <Header/>
+    <TopHeader />
 
     <ion-content :fullscreen="true">
       <ion-accordion-group :multiple="true">
-        <RegionList v-for="region in sovereignRegions" :region="region"/>
+        <RegionList
+          v-for="region in sovereignRegions"
+          :key="region.name.toString()"
+          :region="region"
+        />
 
         <ion-card>
           <ion-accordion>
@@ -21,8 +25,14 @@
             <!-- Statistics Exclusion Warning -->
             <div slot="content">
               <ion-card v-if="!userInfo.includeNonSovereign">
-                <ion-accordion :toggle-icon="informationCircleOutline" readonly>
-                  <ion-item slot="header" color="warning">
+                <ion-accordion
+                  :toggle-icon="informationCircleOutline"
+                  readonly
+                >
+                  <ion-item
+                    slot="header"
+                    color="warning"
+                  >
                     <ion-card-header>
                       <ion-card-subtitle class="ion-text-justify">
                         Non-sovereign states are currently excluded from statistics.
@@ -33,11 +43,14 @@
                 </ion-accordion>
               </ion-card>
 
-              <RegionList v-for="region in nonSovereignRegions" :region="region"/>
+              <RegionList
+                v-for="region in nonSovereignRegions"
+                :key="region.name.toString()"
+                :region="region"
+              />
             </div>
           </ion-accordion>
         </ion-card>
-
       </ion-accordion-group>
     </ion-content>
   </ion-page>
@@ -55,7 +68,7 @@ import {
   IonItem,
   IonPage
 } from '@ionic/vue';
-import Header from "@/components/Header.vue";
+import TopHeader from "@/components/TopHeader.vue";
 import RegionList from "@/components/RegionList.vue";
 import Region from "@/models/Region";
 import World from "@/models/World";
@@ -71,13 +84,13 @@ const sovereignWorld: ComputedRef<World> = computed(() => store.getters.sovereig
 const nonSovereignWorld: ComputedRef<World> = computed(() => store.getters.nonSovereignWorld);
 
 const sovereignRegions: ComputedRef<Region[]> = computed(() => {
-  return sovereignWorld.value.regions.sort((a, b) => {
+  return [...sovereignWorld.value.regions].sort((a, b) => {
     return b.visitedNumber - a.visitedNumber
   });
 });
 
 const nonSovereignRegions: ComputedRef<Region[]> = computed(() => {
-  return nonSovereignWorld.value.regions.sort((a, b) => {
+  return [...nonSovereignWorld.value.regions].sort((a, b) => {
     return b.visitedNumber - a.visitedNumber
   });
 });

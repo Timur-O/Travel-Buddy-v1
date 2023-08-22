@@ -1,11 +1,20 @@
 <template>
   <ion-list :inset="true">
     <ion-item>
-      <ion-label class="header">Region:</ion-label>
-      <ion-label class="header">By Number:</ion-label>
-      <ion-label class="header">By Area:</ion-label>
+      <ion-label class="header">
+        Region:
+      </ion-label>
+      <ion-label class="header">
+        By Number:
+      </ion-label>
+      <ion-label class="header">
+        By Area:
+      </ion-label>
     </ion-item>
-    <ion-item v-for="region in regions">
+    <ion-item
+      v-for="region in regions"
+      :key="region.name.toString()"
+    >
       <ion-label>
         {{ region.name }}
       </ion-label>

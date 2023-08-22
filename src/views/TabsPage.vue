@@ -1,18 +1,36 @@
 <template>
   <ion-page>
     <ion-tabs>
-      <ion-router-outlet></ion-router-outlet>
+      <ion-router-outlet />
       <ion-tab-bar slot="bottom">
-        <ion-tab-button href="/app/stats" tab="stats">
-          <ion-icon :icon="statsChartOutline" aria-label="Stats Page"/>
+        <ion-tab-button
+          href="/app/stats"
+          tab="stats"
+        >
+          <ion-icon
+            :icon="statsChartOutline"
+            aria-label="Stats Page"
+          />
         </ion-tab-button>
 
-        <ion-tab-button href="/app/map" tab="map">
-          <ion-icon :icon="mapOutline" aria-label="Map Page"/>
+        <ion-tab-button
+          href="/app/map"
+          tab="map"
+        >
+          <ion-icon
+            :icon="mapOutline"
+            aria-label="Map Page"
+          />
         </ion-tab-button>
 
-        <ion-tab-button href="/app/list" tab="list">
-          <ion-icon :icon="listOutline" aria-label="List Page"/>
+        <ion-tab-button
+          href="/app/list"
+          tab="list"
+        >
+          <ion-icon
+            :icon="listOutline"
+            aria-label="List Page"
+          />
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

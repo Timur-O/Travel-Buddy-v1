@@ -1,17 +1,35 @@
 <template>
   <div class="large-percentage-container">
-      <svg class="stat-circle" width="150" viewBox="0 0 20 20">
-        <circle class="bg" cx="10" cy="10" r="8"/>
-        <circle class="progress"
-                :class="color + '-stroke'"
-                cx="10" cy="10" r="8"
-                :data-percentage="roundedPercentage"/>
-        <text x="50%" y="55%"
-              :class="color + '-fill'">
-          {{ roundedPercentage }}%
-        </text>
-      </svg>
-    <h5 class="large-percentage-desc">{{ title }}</h5>
+    <svg
+      class="stat-circle"
+      width="150"
+      viewBox="0 0 20 20"
+    >
+      <circle
+        class="bg"
+        cx="10"
+        cy="10"
+        r="8"
+      />
+      <circle
+        class="progress"
+        :class="color + '-stroke'"
+        cx="10"
+        cy="10"
+        r="8"
+        :data-percentage="roundedPercentage"
+      />
+      <text
+        x="50%"
+        y="55%"
+        :class="color + '-fill'"
+      >
+        {{ roundedPercentage }}%
+      </text>
+    </svg>
+    <h5 class="large-percentage-desc">
+      {{ title }}
+    </h5>
   </div>
 </template>
 

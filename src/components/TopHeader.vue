@@ -4,19 +4,29 @@
       <ion-title id="header">
         <div id="header">
           <ion-thumbnail @click="router.push('/app/stats')">
-            <img id="app-icon" alt="App Icon" src="/favicon.png"/>
+            <img
+              id="app-icon"
+              alt="App Icon"
+              src="/favicon.png"
+            >
           </ion-thumbnail>
-          <p id="header-title">Travel Buddy</p>
-          <ion-icon v-if="router.currentRoute.value.name != 'settings'"
-                    :icon="settingsOutline"
-                    aria-label="Settings Button"
-                    color="secondary"
-                    @click="router.push('/app/settings')"></ion-icon>
-          <ion-icon v-if="router.currentRoute.value.name == 'settings'"
-                    :icon="closeOutline"
-                    aria-label="Close Button"
-                    color="secondary"
-                    @click="router.back()"></ion-icon>
+          <p id="header-title">
+            Travel Buddy
+          </p>
+          <ion-icon
+            v-if="router.currentRoute.value.name != 'settings'"
+            :icon="settingsOutline"
+            aria-label="Settings Button"
+            color="secondary"
+            @click="router.push('/app/settings')"
+          />
+          <ion-icon
+            v-if="router.currentRoute.value.name == 'settings'"
+            :icon="closeOutline"
+            aria-label="Close Button"
+            color="secondary"
+            @click="router.back()"
+          />
         </div>
       </ion-title>
     </ion-toolbar>

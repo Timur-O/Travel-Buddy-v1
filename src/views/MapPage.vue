@@ -2,7 +2,9 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <!-- TODO - Add Maps -->
-      <h1 id="coming-soon">Coming Soon!</h1>
+      <h1 id="coming-soon">
+        Coming Soon!
+      </h1>
     </ion-content>
   </ion-page>
 </template>

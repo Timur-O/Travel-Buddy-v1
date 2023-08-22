@@ -1,29 +1,37 @@
 <template>
   <ion-page>
-    <Header/>
+    <TopHeader />
 
     <ion-content :fullscreen="true">
-      <h2 class="greeting">Hi {{ name }}! You've travelled to</h2>
+      <h2 class="greeting">
+        Hi {{ name }}! You've travelled to
+      </h2>
 
-      <LargePercentage :percentage="world.percentageVisitedByNumber"
-                       color="primary"
-                       direction="row"
-                       title="of countries!"/>
-      <LargePercentage :percentage="world.percentageVisitedByArea"
-                       color="secondary"
-                       direction="row-reverse"
-                       title="By area, that's"/>
+      <LargePercentage
+        :percentage="world.percentageVisitedByNumber"
+        color="primary"
+        direction="row"
+        title="of countries!"
+      />
+      <LargePercentage
+        :percentage="world.percentageVisitedByArea"
+        color="secondary"
+        direction="row-reverse"
+        title="By area, that's"
+      />
 
-      <h3 class="closer-look">Let's take a closer look:</h3>
+      <h3 class="closer-look">
+        Let's take a closer look:
+      </h3>
 
-      <RegionSummaryList :regions="worldRegions"/>
+      <RegionSummaryList :regions="worldRegions" />
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts" setup>
 import {IonContent, IonPage} from '@ionic/vue';
-import Header from "@/components/Header.vue";
+import TopHeader from "@/components/TopHeader.vue";
 import LargePercentage from "@/components/LargePercentage.vue";
 import RegionSummaryList from "@/components/RegionSummaryList.vue";
 import {useStore} from "vuex";
@@ -47,7 +55,7 @@ const world: ComputedRef<World> = computed(() => {
 });
 
 const worldRegions: ComputedRef<Array<Region>> = computed(() => {
-  return world.value.regions.sort((a, b) => {
+  return [...world.value.regions].sort((a, b) => {
     return b.visitedNumber - a.visitedNumber;
   });
 });
