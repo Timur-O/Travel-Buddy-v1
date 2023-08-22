@@ -46,19 +46,20 @@
 <script lang="ts" setup>
 import {IonAlert, IonButton, IonContent, IonIcon, IonPage, IonToggle} from "@ionic/vue";
 import Header from "@/components/Header.vue";
-import {useStore} from "vuex";
+import {Computed, useStore} from "vuex";
 import {key} from "@/store";
 import {exitOutline, trashBinOutline} from "ionicons/icons";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {usersCollection} from "@/firebase/firebase";
 import {getCurrentUser} from "vuefire";
 import {doc, updateDoc} from "firebase/firestore";
+import UserInfo from "@/models/UserInfo";
 
 const store = useStore(key);
-const userInfo = computed(() => store.getters.userInfo).value;
+const userInfo: ComputedRef<UserInfo> = computed(() => store.getters.userInfo);
 
 async function includeNonSovereignChanged() {
-  const newValue = !userInfo.includeNonSovereign;
+  const newValue = !userInfo.value.includeNonSovereign;
 
   const currentUser = await getCurrentUser();
   await updateDoc(doc(usersCollection, currentUser?.uid), {

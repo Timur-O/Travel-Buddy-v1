@@ -23,8 +23,11 @@
 import {IonIcon, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from '@ionic/vue';
 import {listOutline, mapOutline, statsChartOutline} from 'ionicons/icons';
 import {useStore} from "vuex";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {key} from "@/store";
+import {getCurrentUser} from "vuefire";
+import UserInfo from "@/models/UserInfo";
+import CountriesInfo from "@/models/CountriesInfo";
 
 export default {
   name: 'TabsPage',
@@ -32,14 +35,19 @@ export default {
   async setup() {
 
     const store = useStore(key);
-    const userInfo = computed(() => store.getters.userInfo).value;
-    const countriesInfo = computed(() => store.getters.countriesInfo).value;
+    const userInfo: ComputedRef<UserInfo | null> = computed(() => {
+      return store.getters.userInfo
+    });
+    const countriesInfo: ComputedRef<CountriesInfo | null> = computed(() => {
+      return store.getters.countriesInfo
+    });
 
-    if (userInfo == null) {
-      await store.dispatch("fetchUserInfo");
+    if (userInfo.value === null) {
+      const currentUser = await getCurrentUser();
+      await store.dispatch("initUserInfoSubscription", {userId: currentUser?.uid!});
     }
-    if (countriesInfo == null) {
-      await store.dispatch("fetchCountriesInfo");
+    if (countriesInfo.value === null) {
+      await store.dispatch("initCountryInfoSubscription");
     }
 
     return {

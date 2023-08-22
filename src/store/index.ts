@@ -6,10 +6,10 @@ import {
     signInWithPopup,
     signOut
 } from 'firebase/auth'
-import {getCountriesInfo, getUserInfo, googleAuthProvider, usersCollection} from "@/firebase/firebase";
+import {googleAuthProvider, staticCollection, usersCollection} from "@/firebase/firebase";
 import {getCurrentUser, useFirebaseAuth} from "vuefire";
 import router from "@/router";
-import {deleteDoc, doc, setDoc} from "firebase/firestore";
+import {deleteDoc, doc, setDoc, onSnapshot, getDoc} from "firebase/firestore";
 import World from "@/models/World";
 import Region from "@/models/Region";
 import Country from "@/models/Country";
@@ -40,6 +40,38 @@ export const store = createStore<State>({
         }
     },
     actions: {
+        async initUserInfoSubscription(context, {userId}) {
+            const userInfoRef = doc(usersCollection, userId);
+
+            const snapshot = await getDoc(userInfoRef);
+            const userInfo = snapshot.exists() ? snapshot.data() : null;
+            context.commit("setUserInfo", userInfo);
+
+            onSnapshot(userInfoRef, (doc: any) => {
+                const userInfo = doc.exists() ? doc.data() : null;
+                context.commit("setUserInfo", userInfo);
+            });
+        },
+        async initCountryInfoSubscription(context) {
+            const countriesInfoRef = doc(staticCollection, "countries");
+
+            const snapshot = await getDoc(countriesInfoRef);
+            const countriesInfo = snapshot.exists() ? snapshot.data() : null;
+            const parsedCountriesInfo = new CountriesInfo();
+            parsedCountriesInfo.un = JSON.parse(countriesInfo!.un);
+            parsedCountriesInfo.nonUn = JSON.parse(countriesInfo!.nonUn);
+            parsedCountriesInfo.nonSovereign = JSON.parse(countriesInfo!.nonSovereign);
+            context.commit("setCountriesInfo", parsedCountriesInfo);
+
+            onSnapshot(countriesInfoRef, (doc: any) => {
+                const countriesInfo = doc.exists() ? doc.data() : null;
+                const parsedCountriesInfo = new CountriesInfo();
+                parsedCountriesInfo.un = JSON.parse(countriesInfo.un);
+                parsedCountriesInfo.nonUn = JSON.parse(countriesInfo.nonUn);
+                parsedCountriesInfo.nonSovereign = JSON.parse(countriesInfo.nonSovereign);
+                context.commit("setCountriesInfo", parsedCountriesInfo);
+            });
+        },
         async emailLogin(context, {email, password, error, errorMsg}) {
             signInWithEmailAndPassword(useFirebaseAuth()!, email, password)
                 .then(async () => {
@@ -88,23 +120,15 @@ export const store = createStore<State>({
             await deleteUser(currentUser!);
             await router.push('/login');
         },
-        async fetchUserInfo(context) {
-            const currentUser = await getCurrentUser();
-            const userInfo = await getUserInfo(currentUser?.uid!);
-            context.commit("setUserInfo", userInfo);
-        },
-        async fetchCountriesInfo(context) {
-            const countriesInfo = await getCountriesInfo();
-            context.commit("setCountriesInfo", countriesInfo);
-        },
         async postLoginTasks(context, {name}) {
             const currentUser = await getCurrentUser();
-            const userInfo = await getUserInfo(currentUser?.uid!);
+            await context.dispatch("initUserInfoSubscription", currentUser?.uid!);
+            const userInfo = context.state.userInfo;
 
             // Create document for user if it doesn't exist
             if (userInfo == null) {
-                const countriesInfo = await getCountriesInfo();
-                context.commit("setCountriesInfo", countriesInfo);
+                await context.dispatch("initCountryInfoSubscription");
+                const countriesInfo = context.state.countriesInfo!;
 
                 const unCountries = Object
                     .values(countriesInfo.un)

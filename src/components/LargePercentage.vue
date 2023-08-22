@@ -1,6 +1,5 @@
 <template>
   <div class="large-percentage-container">
-<!--      <h1 :class="color" class="large-percentage">{{ Math.round(percentage) }}%</h1>-->
       <svg class="stat-circle" width="150" viewBox="0 0 20 20">
         <circle class="bg" cx="10" cy="10" r="8"/>
         <circle class="progress"
@@ -17,6 +16,8 @@
 </template>
 
 <script lang="ts" setup>
+import {computed, ComputedRef} from "vue";
+
 const props = defineProps({
   title: {
     type: String,
@@ -42,7 +43,9 @@ const props = defineProps({
   }
 });
 
-const roundedPercentage = Math.round(props.percentage);
+const roundedPercentage: ComputedRef<number> = computed(() => {
+  return Math.round(props.percentage);
+});
 </script>
 
 <style scoped>

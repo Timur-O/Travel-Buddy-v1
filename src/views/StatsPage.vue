@@ -27,24 +27,29 @@ import Header from "@/components/Header.vue";
 import LargePercentage from "@/components/LargePercentage.vue";
 import RegionSummaryList from "@/components/RegionSummaryList.vue";
 import {useStore} from "vuex";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import World from "@/models/World";
 import {key} from "@/store";
 import Region from "@/models/Region";
+import UserInfo from "@/models/UserInfo";
 
 const store = useStore(key);
-const userInfo = computed(() => store.getters.userInfo).value;
+const userInfo: ComputedRef<UserInfo> = computed(() => store.getters.userInfo);
 
-const name = userInfo.name.substring(0, userInfo.name.indexOf(" "));
+const name: string = userInfo.value.name.substring(0, userInfo.value.name.indexOf(" "));
 
-let world: World;
-if (userInfo.includeNonSovereign) {
-  world = computed(() => store.getters.wholeWorld).value;
-} else {
-  world = computed(() => store.getters.sovereignWorld).value;
-}
-let worldRegions: Array<Region> = world.regions.sort((a, b) => {
-  return b.visitedNumber - a.visitedNumber
+const world: ComputedRef<World> = computed(() => {
+  if (userInfo.value.includeNonSovereign) {
+    return store.getters.wholeWorld;
+  } else {
+    return store.getters.sovereignWorld;
+  }
+});
+
+const worldRegions: ComputedRef<Array<Region>> = computed(() => {
+  return world.value.regions.sort((a, b) => {
+    return b.visitedNumber - a.visitedNumber;
+  });
 });
 </script>
 

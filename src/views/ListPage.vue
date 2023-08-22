@@ -59,19 +59,26 @@ import Header from "@/components/Header.vue";
 import RegionList from "@/components/RegionList.vue";
 import Region from "@/models/Region";
 import World from "@/models/World";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {key} from "@/store";
 import {useStore} from "vuex";
 import {informationCircleOutline} from "ionicons/icons";
+import UserInfo from "@/models/UserInfo";
 
 const store = useStore(key);
-const userInfo = computed(() => store.getters.userInfo).value;
-const sovereignWorld: World = computed(() => store.getters.sovereignWorld).value;
-const nonSovereignWorld: World = computed(() => store.getters.nonSovereignWorld).value;
-const sovereignRegions: Region[] = sovereignWorld.regions.sort((a, b) => {
-  return b.visitedNumber - a.visitedNumber
+const userInfo: ComputedRef<UserInfo> = computed(() => store.getters.userInfo);
+const sovereignWorld: ComputedRef<World> = computed(() => store.getters.sovereignWorld);
+const nonSovereignWorld: ComputedRef<World> = computed(() => store.getters.nonSovereignWorld);
+
+const sovereignRegions: ComputedRef<Region[]> = computed(() => {
+  return sovereignWorld.value.regions.sort((a, b) => {
+    return b.visitedNumber - a.visitedNumber
+  });
 });
-const nonSovereignRegions: Region[] = nonSovereignWorld.regions.sort((a, b) => {
-  return b.visitedNumber - a.visitedNumber
+
+const nonSovereignRegions: ComputedRef<Region[]> = computed(() => {
+  return nonSovereignWorld.value.regions.sort((a, b) => {
+    return b.visitedNumber - a.visitedNumber
+  });
 });
 </script>
