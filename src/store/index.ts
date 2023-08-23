@@ -79,7 +79,7 @@ export const store = createStore<State>({
                 })
                 .catch((reason) => {
                     error.value = true;
-                    errorMsg.value = "An error occurred. Please try again later.";
+                    errorMsg.value = "Incorrect email or password.";
                     console.error('Failed to login:', reason);
                 });
         },
@@ -90,7 +90,7 @@ export const store = createStore<State>({
                 })
                 .catch((reason) => {
                     error.value = true;
-                    errorMsg.value = "An error occurred. Please try again later.";
+                    errorMsg.value = "Something went wrong. Please try again later.";
                     console.error('Failed to signup:', reason);
                 });
         },

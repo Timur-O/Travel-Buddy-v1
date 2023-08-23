@@ -23,9 +23,7 @@
           <br>
           <ion-img
             src="/google_login.png"
-            @click="store.dispatch('googleLogin', {
-              error: googleLoginErr
-            })"
+            @click="loginWithGoogle()"
           />
           <ion-text
             v-if="googleLoginErr"
@@ -73,6 +71,15 @@
               type="password"
             />
           </ion-item>
+
+          <ion-text
+            v-if="emailLoginErr"
+            class="error"
+            color="danger"
+          >
+            {{ emailLoginErrMsg }}
+          </ion-text>
+
           <ion-button
             id="loginButton"
             class="emailModalButton"
@@ -130,6 +137,15 @@
               type="password"
             />
           </ion-item>
+
+          <ion-text
+            v-if="emailSignupErr"
+            class="error"
+            color="danger"
+          >
+            {{ emailSignupErrMsg }}
+          </ion-text>
+
           <ion-button
             id="signupButton"
             class="emailModalButton"
@@ -140,14 +156,6 @@
           >
             Signup
           </ion-button>
-
-          <ion-text
-            v-if="emailLoginErr"
-            class="error"
-            color="danger"
-          >
-            {{ emailLoginErrMsg }}
-          </ion-text>
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -172,65 +180,71 @@ import {store} from "@/store";
 import {closeOutline} from "ionicons/icons";
 
 const emailLoginModal = ref();
+
 const googleLoginErr = ref(false);
 const emailLoginErr = ref(false);
-const emailLoginErrMsg = ref('');
+const emailLoginErrMsg = ref("");
+const emailSignupErr = ref(false);
+const emailSignupErrMsg = ref("");
 
-const loginEmailValue = ref('');
-const loginPasswordValue = ref('');
-
-const signUpNameValue = ref('');
-const signUpEmailValue = ref('');
-const signUpPasswordValue = ref('');
-const signUpConfirmPasswordValue = ref('');
+const loginEmailValue = ref("");
+const loginPasswordValue = ref("");
+const signUpNameValue = ref("");
+const signUpEmailValue = ref("");
+const signUpPasswordValue = ref("");
+const signUpConfirmPasswordValue = ref("");
 
 function dismissEmailLogin() {
   emailLoginModal.value.$el.dismiss(null, 'cancel');
+
+  emailLoginErr.value = false;
+  emailSignupErr.value = false;
+  googleLoginErr.value = false;
 }
 
 function signUpWithEmail() {
-  if (signUpNameValue.value !== '') {
-    if (signUpEmailValue.value !== '') {
-      if (signUpPasswordValue.value !== '') {
-        if (signUpConfirmPasswordValue.value !== '') {
-          if (signUpConfirmPasswordValue.value === signUpPasswordValue.value) {
-            emailLoginErr.value = false;
+  if (signUpNameValue.value.$el.value !== "") {
+    if (signUpEmailValue.value.$el.value !== "") {
+      if (signUpPasswordValue.value.$el.value !== "") {
+        if (signUpConfirmPasswordValue.value.$el.value !== "") {
+          if (signUpConfirmPasswordValue.value.$el.value === signUpPasswordValue.value.$el.value) {
+            emailSignupErr.value = false;
             store.dispatch("emailSignup", {
-              name: signUpNameValue,
-              email: signUpEmailValue,
-              password: signUpPasswordValue,
-              error: emailLoginErr,
-              errorMsg: emailLoginErrMsg
+              name: signUpNameValue.value.$el.value,
+              email: signUpEmailValue.value.$el.value,
+              password: signUpPasswordValue.value.$el.value,
+              error: emailSignupErr,
+              errorMsg: emailSignupErrMsg
             });
           } else {
-            emailLoginErr.value = true;
-            emailLoginErrMsg.value = "Please enter the same password twice.";
+            emailSignupErr.value = true;
+            emailSignupErrMsg.value = "Please enter the same password twice.";
           }
         } else {
-          emailLoginErr.value = true;
-          emailLoginErrMsg.value = "Please re-enter your password.";
+          emailSignupErr.value = true;
+          emailSignupErrMsg.value = "Please re-enter your password.";
         }
       } else {
-        emailLoginErr.value = true;
-        emailLoginErrMsg.value = "Please enter a password.";
+        emailSignupErr.value = true;
+        emailSignupErrMsg.value = "Please enter a password.";
       }
     } else {
-      emailLoginErr.value = true;
-      emailLoginErrMsg.value = "Please enter an email address.";
+      emailSignupErr.value = true;
+      emailSignupErrMsg.value = "Please enter an email address.";
     }
   } else {
-    emailLoginErr.value = true;
-    emailLoginErrMsg.value = "Please enter a name."
+    emailSignupErr.value = true;
+    emailSignupErrMsg.value = "Please enter a name."
   }
 }
 
 function loginWithEmail() {
-  if (loginEmailValue.value !== '') {
-    if (loginPasswordValue.value !== '') {
+  if (loginEmailValue.value.$el.value !== "") {
+    if (loginPasswordValue.value.$el.value !== "") {
       emailLoginErr.value = false;
       store.dispatch("emailLogin", {
-        email: loginEmailValue,
-        password: loginPasswordValue,
+        email: loginEmailValue.value.$el.value,
+        password: loginPasswordValue.value.$el.value,
         error: emailLoginErr,
         errorMsg: emailLoginErrMsg
       });
@@ -242,6 +256,12 @@ function loginWithEmail() {
     emailLoginErr.value = true;
     emailLoginErrMsg.value = "Please enter your email address.";
   }
+}
+
+function loginWithGoogle() {
+  store.dispatch('googleLogin', {
+    error: googleLoginErr
+  });
 }
 </script>
 
@@ -290,7 +310,9 @@ function loginWithEmail() {
 }
 
 .error {
-  margin-top: 2em;
+  display: block;
+  margin-top: 0.5em;
+  text-align: center;
 }
 
 .emailModalHeader {
