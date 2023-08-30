@@ -44,7 +44,10 @@ import UserInfo from "@/models/UserInfo";
 const store = useStore(key);
 const userInfo: ComputedRef<UserInfo> = computed(() => store.getters.userInfo);
 
-const name: string = userInfo.value.name.substring(0, userInfo.value.name.indexOf(" "));
+let name: string = userInfo.value.name;
+if (name.indexOf(" ") != -1) {
+  name = name.substring(0, name.indexOf(" "));
+}
 
 const world: ComputedRef<World> = computed(() => {
   if (userInfo.value.includeNonSovereign) {

@@ -122,7 +122,7 @@ export const store = createStore<State>({
         },
         async postLoginTasks(context, {name}) {
             const currentUser = await getCurrentUser();
-            await context.dispatch("initUserInfoSubscription", currentUser?.uid!);
+            await context.dispatch("initUserInfoSubscription", {userId: currentUser?.uid!});
             const userInfo = context.state.userInfo;
 
             // Create document for user if it doesn't exist
