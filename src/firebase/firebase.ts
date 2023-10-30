@@ -1,9 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {GoogleAuthProvider} from 'firebase/auth';
-import {collection, doc, getFirestore} from 'firebase/firestore'
-import {useDocument} from "vuefire";
-import CountriesInfo from "@/models/CountriesInfo";
-import UserInfo from "@/models/UserInfo";
+import {collection, getFirestore} from 'firebase/firestore'
 import secret from './secret.json';
 import {FirebaseOptions} from "@firebase/app";
 
