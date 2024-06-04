@@ -18,7 +18,7 @@
             id="emailLoginButton"
             color="secondary"
           >
-            Login/Signup with Email
+            Login/Sign Up with Email
           </ion-button>
           <br>
           <ion-img
@@ -95,7 +95,7 @@
           <br>
 
           <h3 class="emailModalHeader">
-            Signup with Email
+            Sign Up with Email
           </h3>
           <ion-item>
             <ion-input
