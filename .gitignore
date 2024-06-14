@@ -4,8 +4,7 @@ node_modules
 .DS_Store
 
 # Ignore Secrets
-src/firebase/secret.json
-src/firebase/keys.json
+secrets.json
 
 # Ignore Logging
 firebase-debug.log
