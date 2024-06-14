@@ -19,7 +19,7 @@
           >
             <ion-label>
               <ion-checkbox
-                :checked="country.visited"
+                :checked="country.visited.valueOf()"
                 justify="space-between"
                 mode="ios"
                 @ion-change="() => countryVisitedChanged(country)"
@@ -84,11 +84,11 @@ const userInfo = computed(() => store.getters.userInfo).value;
 
 async function countryVisitedChanged(country: Country) {
   const newValue = !country.visited.valueOf();
-  const countryObj = userInfo.countries[country.type].find(c => c.code == country.code);
+  const countryObj = userInfo.countries[country.type.valueOf()].find((c: Country) => c.code == country.code);
   if (countryObj) {
     countryObj.visited = newValue;
   } else {
-    userInfo.countries[country.type].push({
+    userInfo.countries[country.type.valueOf()].push({
       code: country.code,
       visited: newValue
     });

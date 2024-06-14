@@ -1,8 +1,6 @@
 import {createStore, Store} from "vuex";
 import {
-    createUserWithEmailAndPassword,
     deleteUser,
-    signInWithEmailAndPassword,
     signInWithPopup,
     signOut
 } from 'firebase/auth'
@@ -42,7 +40,6 @@ export const store = createStore<State>({
     actions: {
         async initUserInfoSubscription(context, {userId}) {
             const userInfoRef = doc(usersCollection, userId);
-
             const snapshot = await getDoc(userInfoRef);
             const userInfo = snapshot.exists() ? snapshot.data() : null;
             context.commit("setUserInfo", userInfo);
@@ -72,33 +69,12 @@ export const store = createStore<State>({
                 context.commit("setCountriesInfo", parsedCountriesInfo);
             });
         },
-        async emailLogin(context, {email, password, error, errorMsg}) {
-            signInWithEmailAndPassword(useFirebaseAuth()!, email, password)
-                .then(async () => {
-                    await context.dispatch("postLoginTasks", {name: null});
-                })
-                .catch((reason) => {
-                    error.value = true;
-                    errorMsg.value = "Incorrect email or password.";
-                    console.error('Failed to login:', reason);
-                });
-        },
-        async emailSignup(context, {name, email, password, error, errorMsg}) {
-            createUserWithEmailAndPassword(useFirebaseAuth()!, email, password)
-                .then(async () => {
-                    await context.dispatch("postLoginTasks", {name: name});
-                })
-                .catch((reason) => {
-                    error.value = true;
-                    errorMsg.value = "Something went wrong. Please try again later.";
-                    console.error('Failed to signup:', reason);
-                });
-        },
         async googleLogin(context, {error}) {
             signInWithPopup(
                 useFirebaseAuth()!,
                 googleAuthProvider
-            ).then(async () => {
+            ).then(async (user) => {
+                error.value = false;
                 await context.dispatch("postLoginTasks", {name: null});
             }).catch((reason) => {
                 error.value = true;
@@ -114,7 +90,7 @@ export const store = createStore<State>({
 
             context.commit("setUserInfo", null);
         },
-        async deleteAccount(context) {
+        async deleteAccount() {
             const currentUser = await getCurrentUser();
             await deleteDoc(doc(usersCollection, currentUser?.uid!));
             await deleteUser(currentUser!);
@@ -175,7 +151,7 @@ export const store = createStore<State>({
             }
 
             context.commit("setUserInfo", userInfo);
-            await router.push(router.currentRoute.value.query.redirect || '/');
+            await router.push(router.currentRoute.value.query.redirect?.toString() || '/');
         }
     },
     getters: {
@@ -202,7 +178,8 @@ export const store = createStore<State>({
                     sovereign[region] = sovereign[region].concat(countries);
                 });
             Object.entries(sovereign).forEach(([region, countries]) => {
-                sovereign[region] = countries.sort((a: any, b: any) => {
+                const typedCountries = countries as Country[];
+                sovereign[region] = typedCountries.sort((a: any, b: any) => {
                     return a.name.common.localeCompare(b.name.common);
                 });
             });
@@ -218,9 +195,10 @@ export const store = createStore<State>({
 
             return new World(
                 Object.entries(sovereign).map(([region, countries]) => {
+                    const typedCountries = countries as Country[];
                     return new Region(
                         region,
-                        countries.map((country: any) => {
+                        typedCountries.map((country: any) => {
                             let userCountry = userSovereign.find((userCountry) => {
                                 return userCountry.code == country.cca3;
                             });
@@ -304,7 +282,8 @@ export const store = createStore<State>({
                     all[region] = all[region].concat(countries);
                 });
             Object.entries(all).forEach(([region, countries]) => {
-                all[region] = countries.sort((a: any, b: any) => {
+                const typedCountries = countries as Country[];
+                all[region] = typedCountries.sort((a: any, b: any) => {
                     return a.name.common.localeCompare(b.name.common);
                 });
             });
@@ -323,9 +302,10 @@ export const store = createStore<State>({
 
             return new World(
                 Object.entries(all).map(([region, countries]) => {
+                    const typedCountries = countries as Country[];
                     return new Region(
                         region,
-                        countries.map((country: any) => {
+                        typedCountries.map((country: any) => {
                             let userCountry = userAll.find((userCountry) => {
                                 return userCountry.code == country.cca3;
                             });
