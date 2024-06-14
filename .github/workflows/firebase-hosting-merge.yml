@@ -18,3 +18,6 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TRAVEL_BUDDY_995F7 }}
           channelId: live
           projectId: travel-buddy-995f7
+        env:
+          FIREBASE_SECRET_JSON: ${{ secrets.FIREBASE_SECRET_JSON }}
+          FIREBASE_KEYS_JSON: ${{ secrets.FIREBASE_KEYS_JSON }}

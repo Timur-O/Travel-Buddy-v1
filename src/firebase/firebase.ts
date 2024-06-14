@@ -1,15 +1,17 @@
 import {initializeApp} from 'firebase/app';
 import {GoogleAuthProvider} from 'firebase/auth';
 import {collection, getFirestore} from 'firebase/firestore'
-import secret from './secret.json';
-import keys from './keys.json';
 import {FirebaseOptions} from "@firebase/app";
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
 
-export const firebaseApp = initializeApp(secret as FirebaseOptions);
+
+const secretJson = process.env.FIREBASE_SECRET_JSON ? JSON.parse(process.env.FIREBASE_SECRET_JSON) : require('./secret.json');
+const keysJson = process.env.FIREBASE_KEYS_JSON ? JSON.parse(process.env.FIREBASE_KEYS_JSON) : require('./keys.json');
+
+export const firebaseApp = initializeApp(secretJson as FirebaseOptions);
 
 const appCheck = initializeAppCheck(firebaseApp, {
-    provider: new ReCaptchaEnterpriseProvider(keys.appCheck.siteKey),
+    provider: new ReCaptchaEnterpriseProvider(keysJson.appCheck.siteKey),
     isTokenAutoRefreshEnabled: true
 });
 
