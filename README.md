@@ -1,3 +1,3 @@
 # Travel Buddy
 
-A simple app for keeping track of the countries you've visited.
+A simple app for keeping track of and visualizing the countries you've visited.

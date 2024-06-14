@@ -1,6 +1,3 @@
-// Use Chrome Like So:
-// open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security
-
 export default async function updateCountries() {
     let wikipediaSovereignCountries: string;
     let unCountries: Array<any> = [];
