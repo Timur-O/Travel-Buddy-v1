@@ -24,22 +24,24 @@
                 mode="ios"
                 @ion-change="() => countryVisitedChanged(country)"
               >
-                <p class="flag">
-                  {{ country.flag ? country.flag : '⚠️' }}
-                </p>
-                <div class="name-and-area-container">
-                  {{
-                    country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '')
-                  }}
-                  <p class="ion-color-medium">
-                    {{ country.area.toLocaleString() }} km<sup>2</sup>
-                    <ion-text
-                      v-if="country.type == 'nonUn'"
-                      color="secondary"
-                    >
-                      , Non-UN Member
-                    </ion-text>
+                <div class="container">
+                  <p class="flag">
+                    {{ country.flag ? country.flag : '⚠️' }}
                   </p>
+                  <div class="name-and-area-container">
+                    {{
+                      country.name.substring(0, Math.min(country.name.length, 25)) + (country.name.length > 25 ? '...' : '')
+                    }}
+                    <p class="ion-color-medium">
+                      {{ country.area.toLocaleString() }} km<sup>2</sup>
+                      <ion-text
+                        v-if="country.type == 'nonUn'"
+                        color="secondary"
+                      >
+                        , Non-UN Member
+                      </ion-text>
+                    </p>
+                  </div>
                 </div>
               </ion-checkbox>
             </ion-label>
@@ -102,10 +104,18 @@ async function countryVisitedChanged(country: Country) {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .flag {
-  display: inline-block;
   font-size: var(--size) !important;
-  margin-right: 1rem !important;
+  width: var(--size) !important;
+  margin-right: 1.5rem !important;
 }
 
 .name-and-area-container {

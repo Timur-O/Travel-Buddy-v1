@@ -9,7 +9,7 @@
           <div id="container">
             <ion-thumbnail class="app-icon">
               <img
-                alt="App Icon"
+                alt="Travel Buddy Logo"
                 src="/favicon.png"
               >
             </ion-thumbnail>
