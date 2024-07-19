@@ -19,6 +19,3 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TRAVEL_BUDDY_995F7 }}
           projectId: travel-buddy-995f7
-        env:
-          FIREBASE_SECRET_JSON: ${{ secrets.FIREBASE_SECRET_JSON }}
-          FIREBASE_KEYS_JSON: ${{ secrets.FIREBASE_KEYS_JSON }}

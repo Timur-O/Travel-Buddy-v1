@@ -1,21 +1,21 @@
 import {initializeApp} from 'firebase/app';
 import {GoogleAuthProvider} from 'firebase/auth';
 import {collection, getFirestore} from 'firebase/firestore'
-import {FirebaseOptions} from "@firebase/app";
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
 
-const secretJson = (typeof process !== 'undefined') && process.env.FIREBASE_SECRET_JSON ?
-    JSON.parse(process.env.FIREBASE_SECRET_JSON) :
-    await import('./secret.json');
+const firebaseConfig = {
+    apiKey: "AIzaSyDMzQP3OfzD-DUBj71OuRQ6Fs5iKQswTWU",
+    authDomain: "travel-buddy-995f7.firebaseapp.com",
+    projectId: "travel-buddy-995f7",
+    storageBucket: "travel-buddy-995f7.appspot.com",
+    messagingSenderId: "700063942314",
+    appId: "1:700063942314:web:018787bb6f1739e0c4f2d3"
+};
 
-const keysJson = (typeof process !== 'undefined') && process.env.FIREBASE_KEYS_JSON ?
-    JSON.parse(process.env.FIREBASE_KEYS_JSON) :
-    await import('./keys.json');
+export const firebaseApp = initializeApp(firebaseConfig);
 
-export const firebaseApp = initializeApp(secretJson as FirebaseOptions);
-
-const appCheck = initializeAppCheck(firebaseApp, {
-    provider: new ReCaptchaEnterpriseProvider(keysJson.appCheck.siteKey),
+export const appCheck = initializeAppCheck(firebaseApp, {
+    provider: new ReCaptchaEnterpriseProvider("6Le8l_gpAAAAAK9YGIhVmKqjHvEVk3yD5S6W6c0k"),
     isTokenAutoRefreshEnabled: true
 });
 
